@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const headlessuiPlugin = require("@headlessui/tailwindcss");
+const formsPlugin = require("@tailwindcss/forms");
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,11 +12,7 @@ module.exports = {
       fontFamily: {
         sans: ["Inter, ...defaultTheme.fontFamily.sans"],
       },
-      // backgroundImage: {
-      //   "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-      //   "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      // },
     },
   },
-  plugins: [],
+  plugins: [formsPlugin, headlessuiPlugin],
 };
