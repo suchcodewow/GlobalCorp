@@ -26,8 +26,8 @@ function classNames(...classes) {
 
 export default function Header() {
   return (
-    <>
-      <Disclosure as="nav" className="bg-gray-800">
+
+      <Disclosure as="nav" className="bg-gray-800 flex-none">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -72,7 +72,7 @@ export default function Header() {
                       <div>
                         <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                           <span className="absolute -inset-1.5" />
-                          <span>Open user menu</span>
+                          <span className="text-white">Open user menu</span>
                           {/* <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" /> */}
                         </MenuButton>
                       </div>
@@ -173,15 +173,5 @@ export default function Header() {
           </>
         )}
       </Disclosure>
-
-      <header className="bg-white shadow">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-        </div>
-      </header>
-      <main>
-        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
-      </main>
-    </>
   );
 }
