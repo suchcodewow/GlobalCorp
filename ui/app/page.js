@@ -1,5 +1,6 @@
 import { FullPage } from "@/components/layouts";
+import Hero from "@/components/hero"
 
 export default function Home() {
-  return (<FullPage><div>hi mom</div></FullPage>);
+  return (<FullPage><Hero /></FullPage>);
 }

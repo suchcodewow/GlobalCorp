@@ -1,7 +1,10 @@
 {
-	"folders": [
-		{
-			"path": "ui"
-		}
-	]
+  "folders": [
+    {
+      "path": "ui"
+    },
+    {
+      "path": "../salient"
+    }
+  ]
 }
