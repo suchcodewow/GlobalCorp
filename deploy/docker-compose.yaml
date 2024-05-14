@@ -1,0 +1,170 @@
+services:
+  # DATABASES
+  catalogdb:
+    image: mysql
+    container_name: catalogdb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: api
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: catalogDb
+
+  maindb:
+    image: mongo:latest
+    container_name: maindb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
+
+  ordersdb:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    container_name: ordersdb
+    restart: always
+    environment:
+      SA_PASSWORD: "Password123"
+      ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
+
+  # API's
+  catalogapi:
+    build: ../catalogapi
+    container_name: catalogapi
+    image: suchcodewow/dbic-catalogapi
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - catalogdb
+
+  mainapi:
+    build:
+      context: ../mainapi
+      dockerfile: Dockerfile
+    container_name: mainapi
+    image: suchcodewow/dbic-mainapi
+    restart: always
+    ports:
+      - 5000:5000
+    environment:
+      dbHostName: maindb
+      OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: ""
+      OTEL_EXPORTER_OTLP_HEADERS: ""
+      OTEL_SERVICE_NAME: "transactionAPI"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "none"
+      OTEL_LOGS_EXPORTER: "none"
+      OTEL_TRACES_SAMPLER: "always_on"
+    depends_on:
+      - maindb
+
+  ordersapi:
+    build:
+      context: ../ordersapi
+      dockerfile: ./OrdersAPI/Dockerfile
+    container_name: ordersapi
+    image: suchcodewow/dbic-ordersapi
+    environment:
+      - DOTNET_ENVIRONMENT=DockerDeploy
+    restart: always
+    ports:
+      - 8000:8000
+    depends_on:
+      - ordersdb
+
+  quotesapi:
+    build:
+      context: ../quotesapi
+      dockerfile: Dockerfile
+    container_name: quotesapi
+    image: suchcodewow/dbic-quotesapi
+    restart: always
+    ports:
+      - 6000:6000
+    depends_on:
+      - maindb
+
+  specialtyapi:
+    build:
+      context: ../specialtyapi
+      dockerfile: Dockerfile
+    container_name: specialtyapi
+    image: suchcodewow/dbic-specialtyapi
+    restart: always
+    ports:
+      - 3666:3666
+    depends_on:
+      - maindb
+    environment:
+      DATABASE_URL: mongodb://root:password@maindb/specialty?authSource=admin
+      ESTIMATION_URL: ""
+
+  instamationsvc:
+    build:
+      context: ../instamationsvc
+      dockerfile: Dockerfile
+    container_name: instamationsvc
+    image: suchcodewow/dbic-instamationsvc
+    environment:
+      - DOTNET_ENVIRONMENT=DockerDeploy
+    restart: always
+    ports:
+      - 5130:5130
+
+  # UI
+  ui:
+    build: ../ui
+    container_name: ui
+    image: suchcodewow/dbic-ui
+    ports:
+      - 80:80
+    depends_on:
+      - ordersapi
+      - catalogapi
+      - quotesapi
+
+  # Loadgen
+  loadgen:
+    build: ../loadgen
+    container_name: loadgen
+    image: suchcodewow/dbic-loadgen
+    depends_on:
+      - ui
+    environment:
+      frontendURL: ui
+      runTotal: 3000
+      workers: 3
+      delay: 10
+      timeout: 5000
+
+  # (OPTIONAL) mongo express
+  #CMD -> http://localhost:8081
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_OPTIONS_EDITORTHEME: "ambiance"
+      ME_CONFIG_MONGODB_SERVER: "maindb"
+      ME_CONFIG_BASICAUTH_USERNAME: "root"
+      ME_CONFIG_BASICAUTH_PASSWORD: "password"
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+
+  #local "workstation"
+  #CMD -> docker exec -it term /bin/sh
+  # term:
+  #   build: .
+  #   image: term
+  #   tty: true
+  #   container_name: term

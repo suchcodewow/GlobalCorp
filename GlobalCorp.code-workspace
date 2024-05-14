@@ -5,6 +5,37 @@
     },
     {
       "path": "../salient"
+    },
+    {
+      "path": "catalogapi"
+    },
+    {
+      "path": "deploy"
+    },
+    {
+      "path": "instamationsvc"
+    },
+    {
+      "path": "loadgen"
+    },
+    {
+      "path": "mainapi"
+    },
+    {
+      "path": "ordersapi"
+    },
+    {
+      "path": "quotesapi"
+    },
+    {
+      "path": "specialtyapi"
+    },
+    {
+      "path": "ui1"
     }
-  ]
+  ],
+  "settings": {
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive"
+  }
 }

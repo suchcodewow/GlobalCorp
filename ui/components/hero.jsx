@@ -43,7 +43,6 @@ const offerings = [
                 <Image className="aspect-[3/2] w-full rounded-2xl object-cover" src={offering.imageUrl} alt="" />
                 <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">{offering.name}</h3>
                 <p className="text-base leading-7 text-gray-600">{offering.role}</p>
-
               </li>
             ))}
           </ul>
