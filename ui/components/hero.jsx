@@ -2,6 +2,7 @@ import Image from "next/image"
 import hero1 from "@/public/images/hero1.jpg"
 import hero2 from "@/public/images/hero2.jpg"
 import hero3 from "@/public/images/hero3.jpg"
+import logo from "@/public/images/logo.png"
 
 const offerings = [
     {
@@ -28,8 +29,12 @@ const offerings = [
     return (
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="h-12 flex justify-start">
+          <Image className="object-contain flex" src={logo} alt="logo" />
+          <h1 className="bg-gradient-to-r from-sky-900 via-cyan-500 to-lime-700 bg-clip-text text-transparent text-4xl font-bold">GlobalCorp</h1>
+          </div>
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">What we offer</h2>
+            <h2 className="text-sm font-bold tracking-tight text-green-400 sm:text-4xl">What we offer</h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
               We are a broad reaching organization with solutions for everything you need.
             </p>
@@ -46,6 +51,7 @@ const offerings = [
               </li>
             ))}
           </ul>
+          
         </div>
       </div>
     )

@@ -49,7 +49,7 @@ function classNames(...classes) {
 export default function Header() {
   const pathname = usePathname()
   return (
-      <Disclosure as="nav" className="bg-gray-800 flex-none">
+      <Disclosure as="nav" className="bg-sky-900 flex-none">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -66,8 +66,8 @@ export default function Header() {
                           href={item.href}
                           className={classNames(
                             pathname === item.href
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              ? "bg-sky-950 text-white"
+                              : "text-gray-300 hover:bg-sky-800 hover:text-white",
                             "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}
