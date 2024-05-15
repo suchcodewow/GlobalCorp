@@ -36,7 +36,7 @@ const offerings = [
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-sm font-bold tracking-tight text-green-400 sm:text-4xl">What we offer</h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              We are a broad reaching organization with solutions for everything you need.
+              We are a broad reaching organization with solutions for everything you need!
             </p>
           </div>
           <ul
