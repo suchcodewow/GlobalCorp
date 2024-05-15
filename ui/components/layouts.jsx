@@ -12,3 +12,9 @@ export function FullPage({children}){
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">{children}</div>
     )
 }
+
+export function AboutPage({children}){
+  return (
+      <div className="mx-auto max-w-7xl sm:px-6 bg-slate-300 lg:px-8">{children}</div>
+  )
+}
