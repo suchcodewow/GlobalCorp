@@ -29,14 +29,10 @@ const offerings = [
     return (
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className=" flex flex-row">
-          <Image className="w-10 h-10" src={logo} alt="logo" />
-          <span className="bg-gradient-to-r from-sky-900 via-cyan-500 to-lime-700 bg-clip-text text-transparent text-4xl font-bold">GlobalCorp</span>
-          </div>
           <div className="mx-auto max-w-2xl lg:mx-0 pt-4">
-            <h2 className="text-sm font-bold tracking-tight text-green-400 sm:text-4xl">What we offer</h2>
+            <h2 className="text-sm font-bold tracking-tight text-green-400 sm:text-4xl ">What we offer</h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              We are a broad reaching organization with solutions for everything you need
+              We are a broad reaching organization with solutions for everything you need!
             </p>
           </div>
           <ul

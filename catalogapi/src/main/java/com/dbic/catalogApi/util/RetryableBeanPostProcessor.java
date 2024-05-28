@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
 @Component
 public class RetryableBeanPostProcessor implements BeanPostProcessor {
+    @SuppressWarnings("null")
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof DataSource) {

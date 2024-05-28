@@ -12,12 +12,12 @@ function classNames(...classes) {
 
 export const metadata = {
   title: "GlobalCorp",
-  description: "Everything you need",
+  description: "Everything you need, anytime",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={classNames(inter.className,"bg-white h-dvh")}>
+    <html lang="en" className={classNames(inter.className,"bg-white h-dvh text-typography-950")}>
       <body className="h-screen flex flex-col ">
         <Header />
         <main className="flex-grow">{children}</main>

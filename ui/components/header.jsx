@@ -56,8 +56,10 @@ export default function Header() {
               <div className="flex h-16 items-center justify-between">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <Image className="h-8 w-8" src="/images/wow.png" alt="GlocalCorp" width={500} height={500} />
+                    <Image className="h-8 w-8" src="/images/globalcorp.png" alt="GlocalCorp" width={500} height={500} />
+                    
                   </div>
+                  <span className="ml-2 bg-gradient-to-r from-sky-200 via-cyan-200 to-lime-200 bg-clip-text text-transparent text-2xl font-bold">GlobalCorp</span>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
