@@ -30,7 +30,7 @@ def generateAddress():
         "zip": str(random.randint(10010,99950))
     }
 
-def generateDynacard():
+def generateGlobalcard():
     today = date.today()
     return {
         "ccnum": "****-****-****-" + str(random.randint(1000,9999)),

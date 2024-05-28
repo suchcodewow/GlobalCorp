@@ -73,7 +73,7 @@ class Address(db.EmbeddedDocument):
     state = db.StringField()
     zip = db.StringField()
 
-class Dynacard(db.EmbeddedDocument):
+class Globalcard(db.EmbeddedDocument):
     ccnum = db.StringField()
     ccv = db.StringField()
     expiration = db.StringField()
@@ -82,7 +82,7 @@ class Users(db.Document):
     userId = db.StringField()
     accounts = db.ListField()
     defaultAddress = db.EmbeddedDocumentField(Address)
-    dynacard = db.EmbeddedDocumentField(Dynacard)
+    globalcard = db.EmbeddedDocumentField(Globalcard)
 
     def to_json(self):
         return {
@@ -90,7 +90,7 @@ class Users(db.Document):
             "user": self.userId,
             "accounts": self.accounts,
             "defaultAddress": self.defaultAddress,
-            "dynacard": self.dynacard,
+            "globalcard": self.globalcard,
         }
 
 @app.route("/api/users", methods=["GET"])
@@ -139,14 +139,14 @@ def api_login_user(id):
         print("generating a new user")
         checking = Account(name="Checking", balance=(random.randint(1005, 99999)) / 100)
         savings = Account(name="Savings", balance=(random.randint(10005, 999999)) / 100)
-        dynacard = Account(name="Dynacard", balance=0.00)
+        globalcard = Account(name="Globalcard", balance=0.00)
         defaultAddress = Address(**generateAddress())
-        defaultDynacard = Dynacard(**generateDynacard())
+        defaultGlobalcard = Globalcard(**generateGlobalcard())
         newUser = Users(
             userId=id,
-            accounts=[checking, savings, dynacard],
+            accounts=[checking, savings, globalcard],
             defaultAddress=defaultAddress,
-            dynacard=defaultDynacard,
+            globalcard=defaultGlobalcard,
         )
         newUser.save()
         user = Users.objects(userId=id).first()
