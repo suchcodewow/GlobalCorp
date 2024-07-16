@@ -1,28 +1,65 @@
-'use client';
-import React, { createContext, useContext, useReducer} from 'react';
+'use client'
+import React, { createContext, useContext, useReducer, useEffect } from 'react'
 
-const Context = createContext();
-
+//Setup Context and reducer (reducer makes it easier to add many commands without more imports)
+const Context = createContext()
 const reducer = (state, action) => {
-    switch (action.type) {
-        case 'increment':
-            return {count: state.count + 1};
-        case 'decrement':
-            return { count: state.count - 1};
-            default:
-                throw new Error();
+  switch (action.type) {
+    case 'INIT':
+      return action.value
+    case 'LOGOUT':
+      localStorage.clear()
+      return false
+    default:
+      throw new Error()
+  }
+}
+//Set initial state for new users
+const initialState = {}
+
+//setup provider
+const UserProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  //Load user details from storage if found
+  useEffect(() => {
+    const localData = JSON.parse(localStorage.getItem('localData')) || false
+    dispatch({
+      type: 'INIT',
+      value: localData,
+    })
+  }, [])
+  //When the user details change on the site, save to localstorage
+  useEffect(() => {
+    if (state.user) {
+      // console.log("storing user", user);
+      localStorage.setItem('localData', JSON.stringify(user))
+    } else {
+      // console.log("skip!", user);
     }
+  }, [state])
+  return (
+    <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>
+  )
 }
 
-const initialState = { count: 0 };
+// export UserProvider
+export default UserProvider
+// export a function to use the context in other components
+export const useUserContext = () => useContext(Context)
 
-const App = ({children}) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
-    return (
-        <Context.Provider value={{ state, dispatch }}>
-            {children}
-        </Context.Provider>
-    );
-};
+// built-in components
 
-export default App;
+export const CounterDisplay = () => {
+  const { state } = useUserContext()
+  return <div>Count: {state.count}</div>
+}
+
+export const CounterControls = () => {
+  const { dispatch } = useUserContext()
+  return (
+    <div>
+      <button onClick={() => dispatch({ type: 'increment' })}>Increment</button>
+      <button onClick={() => dispatch({ type: 'decrement' })}>Decrement</button>
+    </div>
+  )
+}
