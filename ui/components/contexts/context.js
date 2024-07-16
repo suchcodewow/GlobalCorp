@@ -13,3 +13,16 @@ const reducer = (state, action) => {
                 throw new Error();
     }
 }
+
+const initialState = { count: 0 };
+
+const App = ({children}) => {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    return (
+        <Context.Provider value={{ state, dispatch }}>
+            {children}
+        </Context.Provider>
+    );
+};
+
+export default App;

@@ -9,7 +9,6 @@ function classNames(...classes) {
   console.log(...classes);
   return classes.filter(Boolean).join(" ");
 }
-
 export const metadata = {
   title: "GlobalCorp",
   description: "Everything you need, anytime",
