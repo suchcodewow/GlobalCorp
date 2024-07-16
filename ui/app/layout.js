@@ -17,6 +17,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+
     <html lang="en" className={classNames(inter.className,"bg-white h-dvh text-typography-950")}>
       <body className="h-screen flex flex-col ">
         <Header />
@@ -24,5 +25,6 @@ export default function RootLayout({ children }) {
         <Footer />
       </body>
     </html>
+
   );
 }
