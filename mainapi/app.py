@@ -1,5 +1,6 @@
 from flask import Flask, make_response, request, jsonify
 from flask_mongoengine import MongoEngine
+from flask_cors import CORS
 from library import *
 import datetime, os, random, time, json
 
@@ -17,6 +18,7 @@ def response(a, b):
     _response.headers["Content-Type"] = "application/json"
     return _response
 app = Flask(__name__)
+CORS(app)
 db = MongoEngine()
 app.config["MONGODB_SETTINGS"] = [
     {
@@ -247,4 +249,4 @@ def my_transctions(userId):
 print("dbHostname=" + dbHostName)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5010, use_reloader=False)
+    app.run(debug=True, host="0.0.0.0", port=5100, use_reloader=False)

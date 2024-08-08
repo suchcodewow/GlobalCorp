@@ -12,7 +12,7 @@ function classNames(...classes) {
 }
 export const metadata = {
   title: 'GlobalCorp',
-  description: 'Everything you need, anytime',
+  description: 'Anything you need... anytime!',
 }
 
 export default function RootLayout({ children }) {

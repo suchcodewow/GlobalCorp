@@ -51,7 +51,7 @@ services:
     image: suchcodewow/dbic-mainapi
     restart: always
     ports:
-      - 5000:5000
+      - 5100:5100
     environment:
       dbHostName: maindb
       OTEL_EXPORTER_OTLP_PROTOCOL: "http/protobuf"

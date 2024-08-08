@@ -7,6 +7,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case 'INIT':
       return action.value
+    case 'LOGIN':
+      return action.value
     case 'LOGOUT':
       localStorage.clear()
       return false
@@ -32,7 +34,7 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     if (state.user) {
       // console.log("storing user", user);
-      localStorage.setItem('localData', JSON.stringify(user))
+      localStorage.setItem('localData', JSON.stringify(state))
     } else {
       // console.log("skip!", user);
     }
@@ -44,22 +46,23 @@ const UserProvider = ({ children }) => {
 
 // export UserProvider
 export default UserProvider
+
 // export a function to use the context in other components
 export const useUserContext = () => useContext(Context)
 
-// built-in components
+// built-in test components
 
-export const CounterDisplay = () => {
-  const { state } = useUserContext()
-  return <div>Count: {state.count}</div>
-}
+// export const CounterDisplay = () => {
+//   const { state } = useUserContext()
+//   return <div>Count: {state.count}</div>
+// }
 
-export const CounterControls = () => {
-  const { dispatch } = useUserContext()
-  return (
-    <div>
-      <button onClick={() => dispatch({ type: 'increment' })}>Increment</button>
-      <button onClick={() => dispatch({ type: 'decrement' })}>Decrement</button>
-    </div>
-  )
-}
+// export const CounterControls = () => {
+//   const { dispatch } = useUserContext()
+//   return (
+//     <div>
+//       <button onClick={() => dispatch({ type: 'increment' })}>Increment</button>
+//       <button onClick={() => dispatch({ type: 'decrement' })}>Decrement</button>
+//     </div>
+//   )
+// }
