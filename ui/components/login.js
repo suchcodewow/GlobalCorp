@@ -1,8 +1,8 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useUserContext } from '@/components/contexts/context'
 import { Prefix, Name, getUser } from '@/components/library'
-import { useRouter, useParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)]
 const selectedName = Name[Math.floor(Math.random() * Name.length)]
@@ -14,15 +14,13 @@ const randomId =
 
 export default function UserLogin() {
   const router = useRouter()
-  const params = useParams()
   const { dispatch } = useUserContext()
   const [userId, setUserId] = useState(randomId)
   const handleLogin = async (e) => {
     e.preventDefault()
     const userObject = await getUser(userId)
     dispatch({ type: 'LOGIN', value: userObject })
-    const returnUrl = slug || '/'
-    router.push(returnUrl)
+    router.back()
   }
   return (
     <div>
@@ -53,7 +51,7 @@ export default function UserLogin() {
                   htmlFor="first-name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Pass word
+                  Pass<span className="text-[1px]"> </span>word
                 </label>
                 <input
                   disabled
