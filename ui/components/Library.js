@@ -14,7 +14,6 @@ export async function getUser(userId) {
   )
   return await response.json()
 }
-
 export async function postTransaction(data) {
   // Ensure user's account is debited before posting transaction
   const updateBalanceSuccess = await updateBalance(data)
@@ -32,13 +31,12 @@ export async function postTransaction(data) {
     },
   }
   const response = await fetch(
-    process.env.NEXT_PUBLIC_clientmainapi + '/transactions',
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/transactions',
     options,
   )
   const jsonResponse = await response.json()
   return jsonResponse
 }
-
 export async function updateBalance(data) {
   // TODO: check funds
   // Build HTTP Request
@@ -50,7 +48,7 @@ export async function updateBalance(data) {
   }
   //Execute Request
   const response = await fetch(
-    process.env.NEXT_PUBLIC_clientmainapi + '/users/' + data.id,
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/users/' + data.id,
     options,
   )
   const jsonResponse = await response.json()
@@ -88,7 +86,7 @@ export async function updateBalance(data) {
   }
   //Make call
   const updateResponse = await fetch(
-    process.env.NEXT_PUBLIC_clientmainapi + '/users/' + data.id,
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/users/' + data.id,
     postOptions,
   )
   return updateResponse
