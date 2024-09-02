@@ -4,16 +4,10 @@
       "path": "ui"
     },
     {
-      "path": "../salient"
-    },
-    {
       "path": "catalogapi"
     },
     {
       "path": "deploy"
-    },
-    {
-      "path": "instamationsvc"
     },
     {
       "path": "loadgen"
