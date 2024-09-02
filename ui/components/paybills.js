@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { postTransaction, payees } from './library'
+import { postTransaction, payees } from '@@/library'
 import toast from 'react-hot-toast'
 
 export default function PayBills({

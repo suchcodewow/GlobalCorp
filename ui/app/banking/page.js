@@ -7,9 +7,9 @@ import {
   CurrencyDollarIcon,
 } from '@heroicons/react/24/outline'
 import { useSearchParams } from 'next/navigation'
-import { useUserContext } from '@/components/contexts/context'
+import { useUserContext } from '@@/context'
 import { NumericFormat } from 'react-number-format'
-import PayBills from '@/components/paybills'
+import PayBills from '@@/paybills'
 import { format } from 'date-fns'
 
 function classNames(...classes) {
@@ -56,9 +56,7 @@ export default function Banking() {
     fetchTransactions().catch(console.error)
   }, [state.user])
 
-  async function refreshData() {
-    
-  }
+  async function refreshData() {}
 
   // console.log('accounts', accounts)
   return (

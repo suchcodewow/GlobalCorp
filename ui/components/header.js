@@ -14,7 +14,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useUserContext } from '@/components/contexts/context'
+import { useUserContext } from '@@/context'
 
 export function Links() {
   const pathname = usePathname()
