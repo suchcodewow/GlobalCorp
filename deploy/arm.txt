@@ -1,0 +1,7 @@
+COMPOSE_DOCKER_CLI_BUILD=1 \
+DOCKER_BUILDKIT=1 \
+DOCKER_DEFAULT_PLATFORM=linux/amd64 \
+docker-compose build
+
+ARM64:
+ DOCKER_DEFAULT_PLATFORM=linux/arm64/v8 docker compose build
