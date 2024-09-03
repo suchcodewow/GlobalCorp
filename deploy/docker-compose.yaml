@@ -106,17 +106,17 @@ services:
       DATABASE_URL: mongodb://root:password@maindb/specialty?authSource=admin
       ESTIMATION_URL: ""
 
-  instamationsvc:
-    build:
-      context: ../instamationsvc
-      dockerfile: Dockerfile
-    container_name: instamationsvc
-    image: suchcodewow/dbic-instamationsvc
-    environment:
-      - DOTNET_ENVIRONMENT=DockerDeploy
-    restart: always
-    ports:
-      - 5130:5130
+  # instamationsvc:
+  #   build:
+  #     context: ../instamationsvc
+  #     dockerfile: Dockerfile
+  #   container_name: instamationsvc
+  #   image: suchcodewow/dbic-instamationsvc
+  #   environment:
+  #     - DOTNET_ENVIRONMENT=DockerDeploy
+  #   restart: always
+  #   ports:
+  #     - 5130:5130
 
   # UI
   ui:
