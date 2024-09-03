@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useUserContext } from '@@/context'
-import { Prefix, Name, getUser } from '@/components/library'
+import { Prefix, Name, getUser } from '@@/library'
 import { useRouter } from 'next/navigation'
 
 const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)]
