@@ -17,8 +17,8 @@ function classNames(...classes) {
 }
 
 export default function Banking() {
-  const searchParams = useSearchParams()
-  const problem = searchParams.get('problem')
+  // const searchParams = useSearchParams()
+  // const problem = searchParams.get('problem')
   const { state, dispatch } = useUserContext()
   const [currentPanel, setCurrentPanel] = useState('recent')
   const [transactions, setTransactions] = useState()

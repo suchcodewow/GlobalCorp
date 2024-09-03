@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { postTransaction, payees } from '@@/library'
+import { postTransaction, payees } from '@/components/library'
 import toast from 'react-hot-toast'
 
 export default function PayBills({
@@ -97,7 +97,7 @@ export default function PayBills({
                 </label>
                 {errors.accountName && (
                   <label className="text-bold bg-crimson-800 ml-2 rounded-md px-3 text-sm text-white">
-                    "{errors.accountName.message}"
+                    {errors.accountName.message}
                   </label>
                 )}
                 <select
