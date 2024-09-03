@@ -49,20 +49,3 @@ export default UserProvider
 
 // export a function to use the context in other components
 export const useUserContext = () => useContext(Context)
-
-// built-in test components
-
-// export const CounterDisplay = () => {
-//   const { state } = useUserContext()
-//   return <div>Count: {state.count}</div>
-// }
-
-// export const CounterControls = () => {
-//   const { dispatch } = useUserContext()
-//   return (
-//     <div>
-//       <button onClick={() => dispatch({ type: 'increment' })}>Increment</button>
-//       <button onClick={() => dispatch({ type: 'decrement' })}>Decrement</button>
-//     </div>
-//   )
-// }

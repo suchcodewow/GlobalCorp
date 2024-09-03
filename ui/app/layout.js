@@ -3,6 +3,7 @@ import './globals.css'
 import Footer from '@@/footer'
 import Header from '@@/header'
 import UserProvider from '@@/context'
+import RouteGuard from '@@/routeguard'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,19 +19,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <UserProvider>
-      <html
-        lang="en"
-        className={classNames(
-          inter.className,
-          'h-dvh bg-white text-typography-950',
-        )}
-      >
-        <body className="flex h-screen flex-col">
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </body>
-      </html>
+      <RouteGuard>
+        <html
+          lang="en"
+          className={classNames(
+            inter.className,
+            'h-dvh bg-white text-typography-950',
+          )}
+        >
+          <body className="flex h-screen flex-col">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </body>
+        </html>
+      </RouteGuard>
     </UserProvider>
   )
 }
