@@ -57,8 +57,8 @@ export default function Header() {
   const router = useRouter()
   const { dispatch } = useUserContext()
   const handleLogout = () => {
-    dispatch({ type: 'LOGOUT' })
     router.push('/')
+    dispatch({ type: 'LOGOUT' })
   }
   const { state } = useUserContext()
   const pathname = usePathname()

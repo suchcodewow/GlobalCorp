@@ -17,7 +17,7 @@ const reducer = (state, action) => {
   }
 }
 //Set initial state for new users
-const initialState = {}
+const initialState = { prerender: true }
 
 //setup provider
 const UserProvider = ({ children }) => {

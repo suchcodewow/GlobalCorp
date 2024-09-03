@@ -14,7 +14,6 @@ export default function RouteGuard({ children }) {
   if (!state.user && !publicPaths.includes(pathname)) {
     router.push('/login?returnUrl=' + pathname)
   } else {
-    console.log('eatme')
+    return children
   }
-  return children
 }

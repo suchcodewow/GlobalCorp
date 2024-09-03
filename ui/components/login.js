@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useUserContext } from '@@/context'
 import { Prefix, Name, getUser } from '@@/library'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)]
 const selectedName = Name[Math.floor(Math.random() * Name.length)]
@@ -14,13 +14,14 @@ const randomId =
 
 export default function UserLogin() {
   const router = useRouter()
+  const params = useSearchParams()
   const { dispatch } = useUserContext()
   const [userId, setUserId] = useState(randomId)
   const handleLogin = async (e) => {
     e.preventDefault()
     const userObject = await getUser(userId)
     dispatch({ type: 'LOGIN', value: userObject })
-    router.back()
+    router.push(params.get('returnUrl') || '/')
   }
   return (
     <div>

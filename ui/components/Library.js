@@ -7,7 +7,6 @@ export async function getUser(userId) {
       'Content-Type': 'application/json',
     },
   }
-  console.log(process.env.MAINAPI)
   const response = await fetch(
     process.env.NEXT_PUBLIC_MAINAPI + '/api/users/login/' + userId,
     options,
