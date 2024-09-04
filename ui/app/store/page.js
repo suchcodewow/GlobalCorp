@@ -1,6 +1,6 @@
-import { FullPage } from "@/components/layouts";
-import Hero from "@/components/hero"
+import { FullPage } from '@@/core/Layouts'
+import Hero from '@@/Hero'
 
 export default function Home() {
-  return (<FullPage>Store</FullPage>);
+  return <FullPage>Store</FullPage>
 }

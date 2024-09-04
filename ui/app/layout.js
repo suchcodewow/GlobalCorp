@@ -1,9 +1,9 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Footer from '@@/footer'
-import Header from '@@/header'
-import UserProvider from '@@/context'
-import RouteGuard from '@@/routeguard'
+import Footer from '@@/core/Footer'
+import Header from '@@/core/Header'
+import UserProvider from '@@/core/Context'
+import RouteGuard from '@@/core/Routeguard'
 
 const inter = Inter({ subsets: ['latin'] })
 

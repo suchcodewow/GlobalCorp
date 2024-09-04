@@ -1,5 +1,5 @@
-import { FullPage } from '@@/layouts'
-import Hero from '@@/hero'
+import { FullPage } from '@@/core/Layouts'
+import Hero from '@@/Hero'
 
 export default function Home() {
   return (

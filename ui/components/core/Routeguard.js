@@ -1,6 +1,6 @@
 'use client'
 import { useRouter, usePathname } from 'next/navigation'
-import { useUserContext } from '@@/context'
+import { useUserContext } from '@@/core/Context'
 
 export default function RouteGuard({ children }) {
   const { state } = useUserContext()

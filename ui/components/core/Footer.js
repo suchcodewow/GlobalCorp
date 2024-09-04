@@ -1,4 +1,4 @@
-import { FullPage } from './layouts'
+import { FullPage } from '@@/core/Layouts'
 const navigation = {
   main: [
     { name: 'About', href: '#' },

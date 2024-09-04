@@ -1,4 +1,4 @@
-import { useUserContext } from '@@/context'
+import { useUserContext } from '@@/core/Context'
 
 export async function getUser(userId) {
   const options = {
