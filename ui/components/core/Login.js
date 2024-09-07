@@ -32,7 +32,7 @@ export default function UserLogin() {
             <div className="mt-4 grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-4">
                 <label
-                  htmlFor="first-name"
+                  htmlFor="global"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Name
@@ -49,7 +49,7 @@ export default function UserLogin() {
               </div>
               <div className="col-span-6 sm:col-span-4">
                 <label
-                  htmlFor="first-name"
+                  htmlFor="corp"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Pass<span className="text-[1px]"> </span>word

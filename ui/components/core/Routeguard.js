@@ -8,9 +8,10 @@ export default function RouteGuard({ children }) {
 
   const publicPaths = ['/', '/login', '/logout', '/store', '/insurance']
   const pathname = usePathname()
-  if (state.prerender) {
-    return
-  }
+  console.log(pathname)
+  // if (state.prerender) {
+  //   return
+  // }
   if (!state.user && !publicPaths.includes(pathname)) {
     router.push('/login?returnUrl=' + pathname)
   } else {

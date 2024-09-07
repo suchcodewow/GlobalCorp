@@ -8,7 +8,6 @@ import RouteGuard from '@@/core/Routeguard'
 const inter = Inter({ subsets: ['latin'] })
 
 function classNames(...classes) {
-  console.log(...classes)
   return classes.filter(Boolean).join(' ')
 }
 export const metadata = {
@@ -24,10 +23,10 @@ export default function RootLayout({ children }) {
           lang="en"
           className={classNames(
             inter.className,
-            'h-dvh bg-white text-typography-950',
+            'h-full bg-white text-typography-950',
           )}
         >
-          <body className="flex h-screen flex-col">
+          <body className="flex h-full flex-col">
             <Header />
             <main className="flex-grow">{children}</main>
             <Footer />

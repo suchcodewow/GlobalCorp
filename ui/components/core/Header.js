@@ -13,7 +13,7 @@ import {
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, redirect } from 'next/navigation'
 import { useUserContext } from '@@/core/Context'
 
 export function Links() {
@@ -57,8 +57,8 @@ export default function Header() {
   const router = useRouter()
   const { dispatch } = useUserContext()
   const handleLogout = () => {
-    router.push('/')
     dispatch({ type: 'LOGOUT' })
+    redirect('/')
   }
   const { state } = useUserContext()
   const pathname = usePathname()
@@ -118,7 +118,7 @@ export default function Header() {
                       <div>
                         <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm">
                           <span className="absolute -inset-1.5" />
-                          <span className="relative flex rounded-full bg-orange-600 px-4 py-2 text-sm text-white">
+                          <span className="relative flex rounded-full bg-orange-500 px-4 py-2 text-sm text-white hover:bg-orange-600">
                             {state.user}
                           </span>
                         </MenuButton>
@@ -142,7 +142,7 @@ export default function Header() {
                   ) : (
                     <div className="relative ml-3">
                       <Link
-                        className="relative flex rounded-full bg-orange-600 px-4 py-2 text-sm text-white"
+                        className="relative flex rounded-full bg-orange-500 px-4 py-2 text-sm text-white hover:bg-orange-600"
                         href="/login"
                       >
                         Login
