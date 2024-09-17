@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { postTransaction, payees } from '@@/core/Library'
+import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
 export default function PayBills({
@@ -13,6 +14,7 @@ export default function PayBills({
   function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
   }
+  const router = useRouter()
   const randomPayee = payees[Math.floor(Math.random() * payees.length)]
   //Form Validation Config & Imports
   const schema = yup
@@ -54,7 +56,7 @@ export default function PayBills({
         toast.error('ERR-1091 Transaction Failed')
         break
     }
-
+    router.refresh()
     // console.log(data);
   }
 

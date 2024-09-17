@@ -18,21 +18,21 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <UserProvider>
-      <RouteGuard>
-        <html
-          lang="en"
-          className={classNames(
-            inter.className,
-            'h-full bg-white text-typography-950',
-          )}
-        >
-          <body className="flex h-full flex-col">
+      <html
+        lang="en"
+        className={classNames(
+          inter.className,
+          'h-full bg-white text-typography-950',
+        )}
+      >
+        <body className="flex h-full flex-col">
+          <RouteGuard>
             <Header />
             <main className="flex-grow">{children}</main>
             <Footer />
-          </body>
-        </html>
-      </RouteGuard>
+          </RouteGuard>
+        </body>
+      </html>
     </UserProvider>
   )
 }
