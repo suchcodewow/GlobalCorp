@@ -1,5 +1,4 @@
 'use client'
-import { Fragment } from 'react'
 import {
   Disclosure,
   DisclosureButton,
@@ -15,6 +14,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter, redirect } from 'next/navigation'
 import { useUserContext } from '@@/core/Context'
+import { removeCookie } from '@@/actions/auth-actions'
 
 export function Links() {
   const pathname = usePathname()
@@ -58,6 +58,7 @@ export default function Header() {
   const { dispatch } = useUserContext()
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT' })
+    removeCookie()
     redirect('/')
   }
   const { state } = useUserContext()
@@ -187,9 +188,6 @@ export default function Header() {
             </div>
             <div className="border-t border-gray-700 pb-3 pt-4">
               <div className="flex items-center px-5">
-                <div className="flex-shrink-0">
-                  {/* <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" /> */}
-                </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
                     {user.name}

@@ -1,5 +1,6 @@
 'use client'
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
+import { createCookie } from '@@/actions/auth-actions'
 
 //Setup Context and reducer (reducer makes it easier to add many commands without more imports)
 const Context = createContext()
@@ -30,11 +31,12 @@ const UserProvider = ({ children }) => {
       value: localData,
     })
   }, [])
-  //When the user details change on the site, save to localstorage
+  //When the user details change on the site, save to localstorage & set cookie
   useEffect(() => {
     if (state.user) {
       // console.log("storing user", user);
       localStorage.setItem('localData', JSON.stringify(state))
+      createCookie({ state })
     } else {
       // console.log("skip!", user);
     }

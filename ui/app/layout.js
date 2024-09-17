@@ -3,7 +3,7 @@ import './globals.css'
 import Footer from '@@/core/Footer'
 import Header from '@@/core/Header'
 import UserProvider from '@@/core/Context'
-import RouteGuard from '@@/core/Routeguard'
+// import RouteGuard from '@@/core/Routeguard'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,11 +26,11 @@ export default function RootLayout({ children }) {
         )}
       >
         <body className="flex h-full flex-col">
-          <RouteGuard>
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </RouteGuard>
+          {/* <RouteGuard> */}
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          {/* </RouteGuard> */}
         </body>
       </html>
     </UserProvider>

@@ -1,4 +1,4 @@
-import { useUserContext } from '@@/core/Context'
+// import { useUserContext } from '@@/core/Context'
 
 export async function getUser(userId) {
   const options = {
@@ -7748,21 +7748,22 @@ const customItem = customItems[Math.floor(Math.random() * customItems.length)]
 export function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
-export const AllQuestions = () => {
-  const { user } = useUserContext()
+export const AllQuestions = (username) => {
+  // Changing this to use a provided value instead of usercontext
+  // const { user } = useUserContext()
   const AllQuestions = [
     {
       type: 'text',
       label: 'Your Name',
       value: 'Name',
-      default: user.user,
+      default: username,
       rules: { minlength: 50 },
     },
     {
       type: 'text',
       label: 'Email Address',
       value: 'Email',
-      default: user.user ? user.user + '@dynabankinsuracart.com' : '',
+      default: username ? username + '@myemail.com' : '',
       rules: [{ required: true, minlength: 50 }],
     },
     {
