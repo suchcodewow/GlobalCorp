@@ -1,5 +1,15 @@
 // import { useUserContext } from '@@/core/Context'
 
+export function randomId() {
+  const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)]
+  const selectedName = Name[Math.floor(Math.random() * Name.length)]
+  const randomId =
+    selectedPrefix.charAt(0).toUpperCase() +
+    selectedPrefix.slice(1) +
+    selectedName.charAt(0).toUpperCase() +
+    selectedName.slice(1)
+  return randomId
+}
 export async function getUser(userId) {
   const options = {
     method: 'GET',

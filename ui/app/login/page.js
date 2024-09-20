@@ -1,30 +1,9 @@
-'use client'
 import { FullPage } from '@@/core/Layouts'
-import { useState } from 'react'
-import { useUserContext } from '@@/core/Context'
-import { Prefix, Name, getUser } from '@@/core/Library'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { randomId } from '@@/core/Library'
 import { loginUser } from '@@/actions/auth-actions'
 
-const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)]
-const selectedName = Name[Math.floor(Math.random() * Name.length)]
-const randomId =
-  selectedPrefix.charAt(0).toUpperCase() +
-  selectedPrefix.slice(1) +
-  selectedName.charAt(0).toUpperCase() +
-  selectedName.slice(1)
-
-export default function UserLogin() {
-  const router = useRouter()
-  const params = useSearchParams()
-  const { dispatch } = useUserContext()
-  const [userId, setUserId] = useState(randomId)
-  // const handleLogin = async (e) => {
-  //   e.preventDefault()
-  //   const userObject = await getUser(userId)
-  //   dispatch({ type: 'LOGIN', value: userObject })
-  //   router.push(params.get('returnUrl') || '/')
-  // }
+export default function UserLogin({ searchParams }) {
+  console.log(`searchParams ${searchParams}`)
   return (
     <FullPage>
       <div>
@@ -45,7 +24,7 @@ export default function UserLogin() {
                     name="global"
                     id="global"
                     // autoComplete="global"
-                    defaultValue={randomId}
+                    defaultValue={randomId()}
                     // value={userId}
                     // onChange={(e) => setUserId(e.target.value)}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"

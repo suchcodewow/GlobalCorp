@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import { createCookie } from '@@/actions/auth-actions'
 
 // 1. Specify public routes
 const publicPaths = ['/', '/login', '/logout', '/store', '/insurance']
@@ -15,11 +16,8 @@ export default async function middleware(req) {
 
   // 4. Redirect to /login if the user is not authenticated
   if (!isPublicRoute && !userCookie) {
-    const response = NextResponse.next()
-    console.log(`path is ${path}`)
-    req.cookies.set('returnUrl', 'your mom')
     return NextResponse.redirect(
-      new URL(`/login?returnUrl=${path}`, req.nextUrl),
+      new URL(`/login?returnUrl=${path.substring(1)}`, req.nextUrl),
     )
   }
 }
