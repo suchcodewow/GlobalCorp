@@ -36,7 +36,6 @@ const UserProvider = ({ children }) => {
     if (state.user) {
       // console.log("storing user", user);
       localStorage.setItem('localData', JSON.stringify(state))
-      createCookie({ state })
     } else {
       // console.log("skip!", user);
     }

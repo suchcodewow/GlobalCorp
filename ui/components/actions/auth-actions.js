@@ -10,8 +10,10 @@ export const logoutUser = () => {
 }
 
 export async function loginUser(formData) {
-  // console.log(props)
   const userObject = await getUser(formData.get('global'))
   cookies().set('scwuser', userObject.user)
   cookies().set('scwid', userObject.id)
+  const returnUrl = formData.get('returnUrl') || '/'
+  console.log(returnUrl)
+  redirect(returnUrl)
 }
