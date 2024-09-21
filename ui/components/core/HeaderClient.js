@@ -13,7 +13,7 @@ import Image from 'next/image'
 import { usePathname, redirect } from 'next/navigation'
 import { useUserContext } from '@@/core/Context'
 import Link from 'next/link'
-import { removeCookie } from '@@/actions/auth-actions'
+import { logoutUser } from '@@/actions/auth-actions'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -27,8 +27,7 @@ export default function HeaderClient({
   const { dispatch } = useUserContext()
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT' })
-    removeCookie()
-    redirect('/')
+    logoutUser()
   }
   const pathname = usePathname()
   return (

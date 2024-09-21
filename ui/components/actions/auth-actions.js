@@ -1,15 +1,12 @@
 'use server'
-
+import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { getUser } from '../core/Library'
 
-export const createCookie = ({ cookie, value }) => {
-  cookies().set(cookie, value)
-}
-
-export const removeCookie = () => {
+export const logoutUser = () => {
   cookies().delete('scwuser')
   cookies().delete('scwid')
+  redirect('/')
 }
 
 export async function loginUser(formData) {
@@ -17,7 +14,4 @@ export async function loginUser(formData) {
   const userObject = await getUser(formData.get('global'))
   cookies().set('scwuser', userObject.user)
   cookies().set('scwid', userObject.id)
-  // const returnUrl = cookies().get('returnUrl')?.value
-  // NextResponse.redirect(new URL('/login', req.nextUrl))
-  // console.log(userObject)
 }

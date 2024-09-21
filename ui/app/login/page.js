@@ -1,9 +1,13 @@
 import { FullPage } from '@@/core/Layouts'
 import { randomId } from '@@/core/Library'
 import { loginUser } from '@@/actions/auth-actions'
+import { headers } from 'next/headers'
 
-export default function UserLogin({ searchParams }) {
-  console.log(`searchParams ${searchParams}`)
+export default function UserLogin(request) {
+  const searchParams = request.nextUrl
+  const headersList = headers()
+  const referer = headersList.get('referer')
+  console.log(searchParams)
   return (
     <FullPage>
       <div>

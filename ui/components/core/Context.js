@@ -1,6 +1,6 @@
 'use client'
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
-import { createCookie } from '@@/actions/auth-actions'
+import { loginUser } from '@@/actions/auth-actions'
 
 //Setup Context and reducer (reducer makes it easier to add many commands without more imports)
 const Context = createContext()
