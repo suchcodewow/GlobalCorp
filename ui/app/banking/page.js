@@ -1,50 +1,51 @@
-'use client'
-import { useState, useEffect } from 'react'
-import { useUserContext } from '@@/core/Context'
-import PayBills from '@@/Paybills'
 import { FullPage } from '@@/core/Layouts'
 import Myinfo from '@@/Myinfo'
+import { cookies } from 'next/headers'
 import Myactions from '@@/Myactions'
 import Myrecents from '@@/Myrecent'
 
-export default function Banking() {
+export default async function Banking() {
+  const userCookie = cookies().get('scwuser')?.value
+  const userId = cookies().get('scwid')?.value
   const problem = false
-  const { state, dispatch } = useUserContext()
-  const [currentPanel, setCurrentPanel] = useState('recent')
-  const [transactions, setTransactions] = useState()
-  const [accounts, setAccounts] = useState()
-  useEffect(() => {
-    if (!state.id) {
-      return
-    }
-    const fetchAccounts = async () => {
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_MAINAPI + '/api/users/' + state.id,
-        {
-          method: 'GET',
-        },
-      )
-      const data = await response.json()
-      setAccounts(data.accounts)
-    }
-    fetchAccounts().catch(console.error)
-  }, [state.id])
-  useEffect(() => {
-    if (!state.user) {
-      return
-    }
-    const fetchTransactions = async () => {
-      const response = await fetch(
-        process.env.NEXT_PUBLIC_MAINAPI + '/api/mytransactions/' + state.user,
-        {
-          method: 'GET',
-        },
-      )
-      const data = await response.json()
-      setTransactions(data)
-    }
-    fetchTransactions().catch(console.error)
-  }, [state.user])
+
+  // user data
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  const response = fetch(
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/users/login/' + userCookie,
+    options,
+  )
+  const userResponse = response.json()
+
+  console.log(userResponse)
+  const fetchAccounts = async () => {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_MAINAPI + '/api/users/' + state.id,
+      {
+        method: 'GET',
+      },
+    )
+    const data = await response.json()
+    return data.accounts
+  }
+  // fetchAccounts().catch(console.error)
+
+  const fetchTransactions = async () => {
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_MAINAPI + '/api/mytransactions/' + state.user,
+      {
+        method: 'GET',
+      },
+    )
+    const data = await response.json()
+    return data
+  }
+  // fetchTransactions().catch(console.error)
 
   async function refreshData() {}
 
@@ -58,15 +59,15 @@ export default function Banking() {
               className="sticky bg-slate-800 py-1 md:w-1/3 md:py-4 md:pl-4"
               aria-label="Sidebar"
             >
-              <Myinfo state={state} />
-              <Myactions setCurrentPanel={setCurrentPanel} />
+              <Myinfo state={fetchUser} />
+              {/* <Myactions setCurrentPanel={setCurrentPanel} /> */}
             </aside>
             {/* activity panel */}
-            {currentPanel == 'recent' && (
+            {/* {currentPanel == 'recent' && (
               <Myrecents transactions={transactions} accounts={accounts} />
-            )}
+            )} */}
             {/* transfer & pay */}
-            {currentPanel == 'transfer' && (
+            {/* {currentPanel == 'transfer' && (
               <>
                 <PayBills
                   setCurrentPanel={setCurrentPanel}
@@ -75,7 +76,7 @@ export default function Banking() {
                   user={state}
                 />
               </>
-            )}
+            )} */}
           </div>
           {problem && (
             <div className="w-full max-w-7xl bg-green-500 p-1 text-center text-sm text-white">

@@ -14,6 +14,6 @@ export async function loginUser(formData) {
   cookies().set('scwuser', userObject.user)
   cookies().set('scwid', userObject.id)
   const returnUrl = formData.get('returnUrl') || '/'
-  console.log(returnUrl)
+  // console.log(returnUrl)
   redirect(returnUrl)
 }
