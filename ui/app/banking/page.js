@@ -8,46 +8,29 @@ export default async function Banking() {
   const userCookie = cookies().get('scwuser')?.value
   const userId = cookies().get('scwid')?.value
   const problem = false
+  const currentPanel = 'recent'
 
-  // user data
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }
-  const response = fetch(
-    process.env.NEXT_PUBLIC_MAINAPI + '/api/users/login/' + userCookie,
-    options,
-  )
-  const userResponse = response.json()
+  // const fetchAccounts = async () => {
+  //   const response = await fetch(
+  //     process.env.NEXT_PUBLIC_MAINAPI + '/api/users/' + state.id,
+  //     {
+  //       method: 'GET',
+  //     },
+  //   )
+  //   const data = await response.json()
+  //   return data.accounts
+  // }
 
-  console.log(userResponse)
-  const fetchAccounts = async () => {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_MAINAPI + '/api/users/' + state.id,
-      {
-        method: 'GET',
-      },
-    )
-    const data = await response.json()
-    return data.accounts
-  }
-  // fetchAccounts().catch(console.error)
-
-  const fetchTransactions = async () => {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_MAINAPI + '/api/mytransactions/' + state.user,
-      {
-        method: 'GET',
-      },
-    )
-    const data = await response.json()
-    return data
-  }
-  // fetchTransactions().catch(console.error)
-
-  async function refreshData() {}
+  // const fetchTransactions = async () => {
+  //   const response = await fetch(
+  //     process.env.NEXT_PUBLIC_MAINAPI + '/api/mytransactions/' + state.user,
+  //     {
+  //       method: 'GET',
+  //     },
+  //   )
+  //   const data = await response.json()
+  //   return data
+  // }
 
   return (
     <>
@@ -59,13 +42,13 @@ export default async function Banking() {
               className="sticky bg-slate-800 py-1 md:w-1/3 md:py-4 md:pl-4"
               aria-label="Sidebar"
             >
-              <Myinfo state={fetchUser} />
-              {/* <Myactions setCurrentPanel={setCurrentPanel} /> */}
+              <Myinfo userCookie={userCookie} />
+              {/* <Myactions userCookie={userCookie} userId={userId} /> */}
             </aside>
             {/* activity panel */}
-            {/* {currentPanel == 'recent' && (
-              <Myrecents transactions={transactions} accounts={accounts} />
-            )} */}
+            {currentPanel == 'recent' && (
+              <Myrecents userCookie={userCookie} userId={userId} />
+            )}
             {/* transfer & pay */}
             {/* {currentPanel == 'transfer' && (
               <>
