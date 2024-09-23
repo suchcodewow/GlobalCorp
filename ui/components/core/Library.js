@@ -1,15 +1,58 @@
 // import { useUserContext } from '@@/core/Context'
+import { cookies } from 'next/headers'
 
-export function randomId() {
-  const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)]
-  const selectedName = Name[Math.floor(Math.random() * Name.length)]
-  const randomId =
-    selectedPrefix.charAt(0).toUpperCase() +
-    selectedPrefix.slice(1) +
-    selectedName.charAt(0).toUpperCase() +
-    selectedName.slice(1)
-  return randomId
+// User login/data functions
+export async function userAccounts() {
+  const userId = cookies().get('scwid')?.value
+  if (!userId) {
+    console.log('Error! No userId to get userAccounts')
+    return {}
+  }
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/users/' + userId,
+    {
+      method: 'GET',
+    },
+  )
+  const responseJson = await response.json()
+  return responseJson.accounts
 }
+
+export async function userTransactions() {
+  const userCookie = cookies().get('scwuser')?.value
+  if (!userCookie) {
+    console.log('Error! no userCookie to get transactions')
+    return {}
+  }
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/mytransactions/' + userCookie,
+    {
+      method: 'GET',
+    },
+  )
+  const responseJson = await response.json()
+  return responseJson
+}
+
+export async function userInfo() {
+  const userCookie = cookies().get('scwuser')?.value
+  if (!userCookie) {
+    console.log('Error! no userCookie to get address info')
+    return {}
+  }
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/users/login/' + userCookie,
+    options,
+  )
+  return await response.json()
+}
+
 export async function getUser(userId) {
   const options = {
     method: 'GET',
@@ -100,6 +143,24 @@ export async function updateBalance(data) {
   )
   return updateResponse
 }
+
+// Random Generators
+export function randomId() {
+  const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)]
+  const selectedName = Name[Math.floor(Math.random() * Name.length)]
+  const randomId =
+    selectedPrefix.charAt(0).toUpperCase() +
+    selectedPrefix.slice(1) +
+    selectedName.charAt(0).toUpperCase() +
+    selectedName.slice(1)
+  return randomId
+}
+
+export const customPayee = () => {
+  return payees[Math.floor(Math.random() * payees.length)]
+}
+
+// Lists for random data
 export const USStates = [
   'AK - Alaska',
   'AL - Alabama',
@@ -7871,7 +7932,7 @@ const insuranceTypes = [
     name: 'Object becomes self-aware or develops aspirations of world domination',
   },
 ]
-export const payees = [
+const payees = [
   'Umbrella Corp',
   'Gringotts Wizarding Bank',
   "Monster's Inc",

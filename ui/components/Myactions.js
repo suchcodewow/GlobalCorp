@@ -1,6 +1,7 @@
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
-export default function Myactions({ setCurrentPanel }) {
+export default function Myactions() {
   return (
     <div className="bg-azure-800 mt-1 overflow-y-auto px-3 py-1 text-white md:mt-4 md:rounded-md md:py-4">
       <ul className="md:space-y-1">
@@ -9,13 +10,13 @@ export default function Myactions({ setCurrentPanel }) {
         </li>
         <li>
           <div className="flex space-x-4">
-            <div
+            <Link
               className="flex w-full cursor-pointer justify-center rounded-md bg-orange-500 px-3 py-2 font-bold hover:bg-orange-600"
-              onClick={() => setCurrentPanel('transfer')}
+              href="/banking/pay"
             >
               <CurrencyDollarIcon className="mr-1 w-5" />
               Transfer & Pay
-            </div>
+            </Link>
           </div>
         </li>
       </ul>

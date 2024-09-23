@@ -3,25 +3,10 @@ import {
   InboxIcon,
   HomeModernIcon,
 } from '@heroicons/react/24/outline'
+import { userInfo } from './core/Library'
 
-async function accountInfo(userCookie) {
-  // user data
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_MAINAPI + '/api/users/login/' + userCookie,
-    options,
-  )
-  const responseJson = await response.json()
-  return responseJson
-}
-
-export default async function MyInfo({ userCookie }) {
-  const state = await accountInfo(userCookie)
+export default async function MyInfo() {
+  const state = await userInfo()
   return (
     <div className="bg-azure-800 overflow-y-auto px-3 py-4 text-white md:rounded-md">
       <ul className="space-y-2">

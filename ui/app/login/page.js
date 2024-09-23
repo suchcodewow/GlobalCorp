@@ -1,7 +1,6 @@
 import { FullPage } from '@@/core/Layouts'
 import { randomId } from '@@/core/Library'
 import { loginUser } from '@@/actions/auth-actions'
-import { headers } from 'next/headers'
 
 export default function UserLogin(request) {
   const returnUrl = request.searchParams.returnUrl
