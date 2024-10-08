@@ -1,8 +1,10 @@
 import { userAccounts, userTransactions } from '@@/core/Library'
+import { format } from 'date-fns'
 
 export default async function myRecents() {
   const accountData = await userAccounts()
   const transactionsData = await userTransactions()
+  console.log(transactionsData)
   return (
     <div>
       <span className="p-1 text-lg font-bold">My Account Balances</span>
@@ -36,7 +38,7 @@ export default async function myRecents() {
                       {account.name}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      ${account.balance}
+                      ${account.balance.toFixed(2)}
                     </td>
                   </tr>
                 ))}

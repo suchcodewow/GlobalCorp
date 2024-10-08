@@ -3,6 +3,7 @@ import './globals.css'
 import Footer from '@@/core/Footer'
 import Header from '@@/core/Header'
 import UserProvider from '@@/core/Context'
+import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
         className={classNames(inter.className, 'text-typography-950')}
       >
         <body className="flex h-screen flex-col bg-white">
+          <Toaster />
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />

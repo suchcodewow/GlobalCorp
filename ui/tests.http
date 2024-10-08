@@ -1,0 +1,19 @@
+// Get transactions
+GET http://localhost:5100/api/transactions
+###
+// Post transaction
+POST http://localhost:5100/api/transactions
+content-type: application/json
+
+{
+    "userId": "66ed8549018d800908eb3d02",
+    "accountName": "Checking",
+    "vendor": "Test Company",
+    "amount": 100
+}
+###
+// Get all users
+GET http://localhost:5100/api/users/66f2cbcc018d800908eb3d1a
+###
+// Get a user's transactions
+GET http://localhost:5100/api/mytransactions/ColdHoney

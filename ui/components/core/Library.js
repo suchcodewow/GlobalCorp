@@ -1,5 +1,6 @@
 // import { useUserContext } from '@@/core/Context'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 // User login/data functions
 export async function userAccounts() {
@@ -66,12 +67,26 @@ export async function getUser(userId) {
   )
   return await response.json()
 }
-export async function postTransaction(data) {
+export async function postTransaction(formData) {
+  'use server'
+  const userId = cookies().get('scwid')?.value
+  const userName = cookies().get('scwuser')?.value
+  if (!userId) {
+    console.log('Error! no userId to post a banking payment.')
+    return
+  }
+  // Convert formData to object to work with existing code
+  var data = {}
+  data['vendor'] = formData.get('payee')
+  data['accountName'] = formData.get('accountName')
+  data['amount'] = parseFloat(formData.get('amount'))
+  data['id'] = userId
+  data['userId'] = userName
   // Ensure user's account is debited before posting transaction
   const updateBalanceSuccess = await updateBalance(data)
-  // console.log("current balance", updateBalanceSuccess);
   // Check for valid debit
   if (updateBalanceSuccess.status !== 200) {
+    console.log('Error updating balance.')
     return false
   }
   // Build HTTP Request
@@ -82,14 +97,18 @@ export async function postTransaction(data) {
       'Content-Type': 'application/json',
     },
   }
+  console.log(options)
   const response = await fetch(
     process.env.NEXT_PUBLIC_MAINAPI + '/api/transactions',
     options,
   )
   const jsonResponse = await response.json()
+  redirect('/banking')
   return jsonResponse
 }
 export async function updateBalance(data) {
+  console.log(data.id)
+  ;('use server')
   // TODO: check funds
   // Build HTTP Request
   const options = {
@@ -158,6 +177,10 @@ export function randomId() {
 
 export const customPayee = () => {
   return payees[Math.floor(Math.random() * payees.length)]
+}
+
+export function randomPayment(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min) / 100
 }
 
 // Lists for random data
@@ -7816,9 +7839,7 @@ export const customItems = [
   },
 ]
 const customItem = customItems[Math.floor(Math.random() * customItems.length)]
-export function randomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
+
 export const AllQuestions = (username) => {
   // Changing this to use a provided value instead of usercontext
   // const { user } = useUserContext()
