@@ -53,17 +53,12 @@ export default function StoreQuickView({ quickView, setQuickView, item }) {
                       <img src={`images/store/${item.img}`} />
                     </div>
                     <div className="sm:col-span-8 lg:col-span-7">
-                      <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">
-                        {item.shortDesc}
-                      </h2>
-                      <section
-                        aria-labelledby="information-heading"
-                        className="mt-2"
-                      >
+                      <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">{item.shortDesc}</h2>
+                      <section aria-labelledby="information-heading" className="mt-2">
                         <h3 id="information-heading" className="sr-only">
                           Product information
                         </h3>
-                        <p className="text-2xl text-gray-900">${item.price}</p>
+                        <p className="text-2xl text-gray-900"> $ {item.price}123</p>
                         {/* Reviews */}
                         <div className="mt-6">
                           <h4 className="sr-only">Reviews</h4>
@@ -72,26 +67,16 @@ export default function StoreQuickView({ quickView, setQuickView, item }) {
                               {[0, 1, 2, 3, 4].map((rating) => (
                                 <StarIcon
                                   key={rating}
-                                  className={classNames(
-                                    item.rating > rating
-                                      ? "text-yellow-700"
-                                      : "text-gray-200",
-                                    "h-5 w-5 flex-shrink-0"
-                                  )}
+                                  className={classNames(item.rating > rating ? "text-yellow-700" : "text-gray-200", "h-5 w-5 flex-shrink-0")}
                                   aria-hidden="true"
                                 />
                               ))}
                             </div>
-                            <p className="sr-only">
-                              {item.rating} out of 5 stars
-                            </p>
+                            <p className="sr-only">{item.rating} out of 5 stars</p>
                           </div>
                         </div>
                       </section>
-                      <section
-                        aria-labelledby="options-heading"
-                        className="mt-10"
-                      >
+                      <section aria-labelledby="options-heading" className="mt-10">
                         <h3 id="options-heading" className="sr-only">
                           Product options
                         </h3>

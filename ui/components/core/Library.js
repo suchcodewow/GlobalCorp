@@ -1,6 +1,28 @@
-// import { useUserContext } from '@@/core/Context'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+
+// Catalog functions
+export async function storeCatalog() {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_CATALOGAPI + '/api/v1/catalog?pageSize=30',
+    {
+      method: 'GET',
+    },
+  )
+  const responseJson = await response.json()
+  return responseJson
+}
+
+export async function storeItem(id) {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_CATALOGAPI + '/api/v1/catalog/' + id,
+    {
+      method: 'GET',
+    },
+  )
+  const responseJson = await response.json()
+  return responseJson
+}
 
 // User login/data functions
 export async function userAccounts() {

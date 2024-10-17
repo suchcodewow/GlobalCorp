@@ -1,10 +1,10 @@
 import { customPayee, randomPayment } from '@@/core/Library'
 import { postTransaction } from '@@/core/Library'
 import Link from 'next/link'
-import SendToast from '@@/UseToast'
+// import SendToast from '@@/UseToast'
+// TODO: do the things! with the toast!
 
 export default function Pay() {
-  SendToast
   return (
     <div>
       <form action={postTransaction}>

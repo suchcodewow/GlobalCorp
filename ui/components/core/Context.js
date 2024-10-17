@@ -1,11 +1,12 @@
 'use client'
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
-import { loginUser } from '@@/actions/auth-actions'
 
 //Setup Context and reducer (reducer makes it easier to add many commands without more imports)
 const Context = createContext()
 const reducer = (state, action) => {
+  const item = action.item
   switch (action.type) {
+    // Login actions
     case 'INIT':
       return action.value
     case 'LOGIN':
@@ -13,6 +14,33 @@ const reducer = (state, action) => {
     case 'LOGOUT':
       localStorage.clear()
       return false
+    // Store actions
+    case 'ADD_ITEM':
+      var addExist = state.cart.find((cart) => cart.id === action.item.id)
+      if (addExist) {
+        return state.cart.map((x) =>
+          x.id === item.id ? { ...addExist, qty: addExist.qty + 1 } : x,
+        )
+      } else {
+        return [...state.cart, { ...item, qty: 1 }]
+      }
+    case 'SUBTRACT_ITEM':
+      var removeExist = cart.find((cart) => cart.id === action.item.id)
+      if (removeExist.qty === 1) {
+        return cart.filter((x) => x.id !== item.id)
+      } else {
+        return cart.map((x) =>
+          x.id === item.id ? { ...removeExist, qty: removeExist.qty - 1 } : x,
+        )
+      }
+    case 'REMOVE_ITEM':
+      return cart.filter((x) => x.id !== item.id)
+    case 'ADD_ADDRESS':
+      return cart
+    case 'INIT':
+      return action.value
+    case 'CLEAR_CART':
+      return []
     default:
       throw new Error()
   }
