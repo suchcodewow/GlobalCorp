@@ -1,6 +1,5 @@
-import { AboutPage } from "@/components/layouts";
-import Hero from "@/components/hero"
+import { FullPage } from '@@/core/Layouts'
 
 export default function Home() {
-  return (<AboutPage>About YOUR app</AboutPage>);
+  return <FullPage>About YOUR app</FullPage>
 }
