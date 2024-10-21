@@ -1,52 +1,36 @@
-'use client'
-import { useState } from 'react'
-import { Radio, RadioGroup } from '@headlessui/react'
-import { CheckCircleIcon, TrashIcon } from '@heroicons/react/20/solid'
+import { TrashIcon } from '@heroicons/react/20/solid'
+import { cookies } from 'next/headers'
+import Image from 'next/image'
+import { newStoreOrder, userInfo } from '@@/core/Library'
 
-export default function Checkout() {
-  const products = [
-    {
-      id: 1,
-      title: 'Basic Tee',
-      href: '#',
-      price: '$32.00',
-      color: 'Black',
-      size: 'Large',
-      imageSrc:
-        'https://tailwindui.com/plus/img/ecommerce-images/checkout-page-02-product-01.jpg',
-      imageAlt: "Front of men's Basic Tee in black.",
-    },
-    // More products...
-  ]
-  const deliveryMethods = [
-    {
-      id: 1,
-      title: 'Standard',
-      turnaround: '4–10 business days',
-      price: '$5.00',
-    },
-    {
-      id: 2,
-      title: 'Express',
-      turnaround: '2–5 business days',
-      price: '$16.00',
-    },
-  ]
-  const paymentMethods = [
-    { id: 'credit-card', title: 'Credit card' },
-    { id: 'paypal', title: 'PayPal' },
-    { id: 'etransfer', title: 'eTransfer' },
-  ]
-  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
-    deliveryMethods[0],
-  )
+export default async function Checkout() {
+  const state = await userInfo()
+  const getCart = cookies().get('cart')?.value || '[]'
+  let cart
+  try {
+    cart = JSON.parse(getCart)
+  } catch {
+    cart = []
+  }
+  let cartTotal = 0
+  let totalItems = 0
+  //TODO: deal with the cart returning no items.  Possible problem card?
+  cart.map((item) => (cartTotal += item.price * item.qty))
+  cart.map((item) => (totalItems += item.qty))
+  const subTotal = cartTotal.toFixed(2)
+  const shipping = (0.08 * cartTotal).toFixed(2)
+  const taxes = (0.073 * cartTotal).toFixed(2)
+  let total = (1.153 * cartTotal).toFixed(2)
 
   return (
     <div className="bg-gray-50">
       <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">Checkout</h2>
 
-        <form className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+        <form
+          action={newStoreOrder}
+          className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"
+        >
           <div>
             <div>
               <h2 className="text-lg font-medium text-gray-900">
@@ -66,6 +50,7 @@ export default function Checkout() {
                     name="email-address"
                     type="email"
                     autoComplete="email"
+                    defaultValue={state.user + '@mail.com'}
                     className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   />
                 </div>
@@ -78,59 +63,6 @@ export default function Checkout() {
               </h2>
 
               <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-                <div>
-                  <label
-                    htmlFor="first-name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    First name
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="first-name"
-                      name="first-name"
-                      type="text"
-                      autoComplete="given-name"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="last-name"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Last name
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="last-name"
-                      name="last-name"
-                      type="text"
-                      autoComplete="family-name"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="company"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Company
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="company"
-                      name="company"
-                      type="text"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="address"
@@ -144,6 +76,7 @@ export default function Checkout() {
                       name="address"
                       type="text"
                       autoComplete="street-address"
+                      defaultValue={state.defaultAddress.address1}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -161,6 +94,7 @@ export default function Checkout() {
                       id="apartment"
                       name="apartment"
                       type="text"
+                      defaultValue={state.defaultAddress.address2}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -179,6 +113,7 @@ export default function Checkout() {
                       name="city"
                       type="text"
                       autoComplete="address-level2"
+                      defaultValue={state.defaultAddress.city}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -218,6 +153,7 @@ export default function Checkout() {
                       name="region"
                       type="text"
                       autoComplete="address-level1"
+                      defaultValue={state.defaultAddress.state}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -236,24 +172,7 @@ export default function Checkout() {
                       name="postal-code"
                       type="text"
                       autoComplete="postal-code"
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </div>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Phone
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="text"
-                      autoComplete="tel"
+                      defaultValue={state.defaultAddress.zip}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -261,86 +180,9 @@ export default function Checkout() {
               </div>
             </div>
 
-            <div className="mt-10 border-t border-gray-200 pt-10">
-              <fieldset>
-                <legend className="text-lg font-medium text-gray-900">
-                  Delivery method
-                </legend>
-                <RadioGroup
-                  value={selectedDeliveryMethod}
-                  onChange={setSelectedDeliveryMethod}
-                  className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4"
-                >
-                  {deliveryMethods.map((deliveryMethod) => (
-                    <Radio
-                      key={deliveryMethod.id}
-                      value={deliveryMethod}
-                      aria-label={deliveryMethod.title}
-                      className="group relative flex cursor-pointer rounded-lg border border-gray-300 bg-white p-4 shadow-sm focus:outline-none data-[checked]:border-transparent data-[focus]:ring-2 data-[focus]:ring-indigo-500"
-                    >
-                      <span className="flex flex-1">
-                        <span className="flex flex-col">
-                          <span className="block text-sm font-medium text-gray-900">
-                            {deliveryMethod.title}
-                          </span>
-                          <span className="mt-1 flex items-center text-sm text-gray-500">
-                            {deliveryMethod.turnaround}
-                          </span>
-                          <span className="mt-6 text-sm font-medium text-gray-900">
-                            {deliveryMethod.price}
-                          </span>
-                        </span>
-                      </span>
-                      <CheckCircleIcon
-                        aria-hidden="true"
-                        className="h-5 w-5 text-indigo-600 [.group:not([data-checked])_&]:hidden"
-                      />
-                      <span
-                        aria-hidden="true"
-                        className="pointer-events-none absolute -inset-px rounded-lg border-2 border-transparent group-data-[focus]:border group-data-[checked]:border-indigo-500"
-                      />
-                    </Radio>
-                  ))}
-                </RadioGroup>
-              </fieldset>
-            </div>
-
             {/* Payment */}
             <div className="mt-10 border-t border-gray-200 pt-10">
               <h2 className="text-lg font-medium text-gray-900">Payment</h2>
-
-              <fieldset className="mt-4">
-                <legend className="sr-only">Payment type</legend>
-                <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
-                  {paymentMethods.map((paymentMethod, paymentMethodIdx) => (
-                    <div key={paymentMethod.id} className="flex items-center">
-                      {paymentMethodIdx === 0 ? (
-                        <input
-                          defaultChecked
-                          id={paymentMethod.id}
-                          name="payment-type"
-                          type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        />
-                      ) : (
-                        <input
-                          id={paymentMethod.id}
-                          name="payment-type"
-                          type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                        />
-                      )}
-
-                      <label
-                        htmlFor={paymentMethod.id}
-                        className="ml-3 block text-sm font-medium text-gray-700"
-                      >
-                        {paymentMethod.title}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </fieldset>
 
               <div className="mt-6 grid grid-cols-4 gap-x-4 gap-y-6">
                 <div className="col-span-4">
@@ -356,6 +198,7 @@ export default function Checkout() {
                       name="card-number"
                       type="text"
                       autoComplete="cc-number"
+                      defaultValue={state.globalcard.ccnum}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -374,6 +217,7 @@ export default function Checkout() {
                       name="name-on-card"
                       type="text"
                       autoComplete="cc-name"
+                      defaultValue={state.user}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -384,7 +228,7 @@ export default function Checkout() {
                     htmlFor="expiration-date"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Expiration date (MM/YY)
+                    Expiration date (MM/YYYY)
                   </label>
                   <div className="mt-1">
                     <input
@@ -392,6 +236,7 @@ export default function Checkout() {
                       name="expiration-date"
                       type="text"
                       autoComplete="cc-exp"
+                      defaultValue={state.globalcard.expiration}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -410,6 +255,7 @@ export default function Checkout() {
                       name="cvc"
                       type="text"
                       autoComplete="csc"
+                      defaultValue={state.globalcard.ccv}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
@@ -425,12 +271,14 @@ export default function Checkout() {
             <div className="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
               <h3 className="sr-only">Items in your cart</h3>
               <ul role="list" className="divide-y divide-gray-200">
-                {products.map((product) => (
+                {cart.map((product) => (
                   <li key={product.id} className="flex px-4 py-6 sm:px-6">
                     <div className="flex-shrink-0">
-                      <img
-                        alt={product.imageAlt}
-                        src={product.imageSrc}
+                      <Image
+                        width="200"
+                        height="200"
+                        alt={product.img}
+                        src={'/images/store/' + product.img}
                         className="w-20 rounded-md"
                       />
                     </div>
@@ -443,15 +291,9 @@ export default function Checkout() {
                               href={product.href}
                               className="font-medium text-gray-700 hover:text-gray-800"
                             >
-                              {product.title}
+                              {product.shortDesc}
                             </a>
                           </h4>
-                          <p className="mt-1 text-sm text-gray-500">
-                            {product.color}
-                          </p>
-                          <p className="mt-1 text-sm text-gray-500">
-                            {product.size}
-                          </p>
                         </div>
 
                         <div className="ml-4 flow-root flex-shrink-0">
@@ -467,7 +309,7 @@ export default function Checkout() {
 
                       <div className="flex flex-1 items-end justify-between pt-2">
                         <p className="mt-1 text-sm font-medium text-gray-900">
-                          {product.price}
+                          ${product.price.toFixed(2)}
                         </p>
 
                         <div className="ml-4">
@@ -496,22 +338,60 @@ export default function Checkout() {
               </ul>
               <dl className="space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
                 <div className="flex items-center justify-between">
+                  <input
+                    readOnly
+                    hidden
+                    id="TotalItems"
+                    name="TotalItems"
+                    type="text"
+                    defaultValue={totalItems}
+                    className="border-0 text-right text-sm font-medium text-gray-900"
+                  />
                   <dt className="text-sm">Subtotal</dt>
-                  <dd className="text-sm font-medium text-gray-900">$64.00</dd>
+                  <input
+                    readOnly
+                    id="Subtotal"
+                    name="Subtotal"
+                    type="text"
+                    defaultValue={'$' + subTotal}
+                    className="border-0 text-right text-sm font-medium text-gray-900"
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-sm">Shipping</dt>
-                  <dd className="text-sm font-medium text-gray-900">$5.00</dd>
+                  <input
+                    readOnly
+                    id="Shipping"
+                    name="Shipping"
+                    type="text"
+                    defaultValue={'$' + shipping}
+                    className="border-0 text-right text-sm font-medium text-gray-900"
+                  />
                 </div>
                 <div className="flex items-center justify-between">
                   <dt className="text-sm">Taxes</dt>
-                  <dd className="text-sm font-medium text-gray-900">$5.52</dd>
+                  <input
+                    readOnly
+                    id="Taxes"
+                    name="Taxes"
+                    type="text"
+                    defaultValue={'$' + taxes}
+                    className="border-0 text-right text-sm font-medium text-gray-900"
+                  />
                 </div>
                 <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                   <dt className="text-base font-medium">Total</dt>
-                  <dd className="text-base font-medium text-gray-900">
-                    $75.52
-                  </dd>
+                  <div className="flex place-content-end">
+                    <p className="mx-0 flex-1">$</p>
+                    <input
+                      readOnly
+                      id="Total"
+                      name="Total"
+                      type="text"
+                      defaultValue={total}
+                      className="flex border-0 text-right text-sm font-medium text-gray-900"
+                    />
+                  </div>
                 </div>
               </dl>
 

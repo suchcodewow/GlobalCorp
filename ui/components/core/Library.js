@@ -1,62 +1,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-// Catalog functions
-export async function storeCatalog() {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_CATALOGAPI + '/api/v1/catalog?pageSize=30',
-    {
-      method: 'GET',
-    },
-  )
-  const responseJson = await response.json()
-  return responseJson
-}
-
-export async function storeItem(id) {
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_CATALOGAPI + '/api/v1/catalog/' + id,
-    {
-      method: 'GET',
-    },
-  )
-  const responseJson = await response.json()
-  return responseJson
-}
-
 // User login/data functions
-export async function userAccounts() {
-  const userId = cookies().get('scwid')?.value
-  if (!userId) {
-    console.log('Error! No userId to get userAccounts')
-    return {}
-  }
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_MAINAPI + '/api/users/' + userId,
-    {
-      method: 'GET',
-    },
-  )
-  const responseJson = await response.json()
-  return responseJson.accounts
-}
-
-export async function userTransactions() {
-  const userCookie = cookies().get('scwuser')?.value
-  if (!userCookie) {
-    console.log('Error! no userCookie to get transactions')
-    return {}
-  }
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_MAINAPI + '/api/mytransactions/' + userCookie,
-    {
-      method: 'GET',
-    },
-  )
-  const responseJson = await response.json()
-  return responseJson
-}
-
 export async function userInfo() {
   const userCookie = cookies().get('scwuser')?.value
   if (!userCookie) {
@@ -89,6 +34,40 @@ export async function getUser(userId) {
   )
   return await response.json()
 }
+
+// Banking functions
+export async function userAccounts() {
+  const userId = cookies().get('scwid')?.value
+  if (!userId) {
+    console.log('Error! No userId to get userAccounts')
+    return {}
+  }
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/users/' + userId,
+    {
+      method: 'GET',
+    },
+  )
+  const responseJson = await response.json()
+  return responseJson.accounts
+}
+
+export async function userTransactions() {
+  const userCookie = cookies().get('scwuser')?.value
+  if (!userCookie) {
+    console.log('Error! no userCookie to get transactions')
+    return {}
+  }
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/mytransactions/' + userCookie,
+    {
+      method: 'GET',
+    },
+  )
+  const responseJson = await response.json()
+  return responseJson
+}
+
 export async function postTransaction(formData) {
   'use server'
   const userId = cookies().get('scwid')?.value
@@ -185,7 +164,54 @@ export async function updateBalance(data) {
   return updateResponse
 }
 
-// Random Generators
+// Catalog functions
+export async function storeCatalog() {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_CATALOGAPI + '/api/v1/catalog?pageSize=30',
+    {
+      method: 'GET',
+    },
+  )
+  const responseJson = await response.json()
+  return responseJson
+}
+
+export async function storeItem(id) {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_CATALOGAPI + '/api/v1/catalog/' + id,
+    {
+      method: 'GET',
+    },
+  )
+  const responseJson = await response.json()
+  return responseJson
+}
+
+export async function newStoreOrder(formData) {
+  'use server'
+  console.log(formData)
+  const userCookie = cookies().get('scwuser')?.value
+  if (!userCookie) {
+    console.log('Error! no userCookie for new order')
+    return {}
+  }
+  const params = {
+    status: 'new',
+    cartTotal: formData.get('Total'),
+    totalItems: formData.get('TotalItems'),
+    Name: userCookie,
+  }
+  const options = {
+    method: 'POST',
+    body: JSON.stringify(params),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  console.log(options)
+}
+
+// Random Generators ( leave at bottom, very long! )
 export function randomId() {
   const selectedPrefix = Prefix[Math.floor(Math.random() * Prefix.length)]
   const selectedName = Name[Math.floor(Math.random() * Name.length)]
