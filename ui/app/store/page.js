@@ -33,7 +33,7 @@ export default async function Home() {
       <div className="bg-white">
         <div className="mx-auto max-w-7xl overflow-hidden sm:px-6 lg:px-8">
           <div className="flex border-b-2 border-gray-100 py-3">
-            {cartStatus && (
+            {cartStatus() && (
               <Link href="/checkout">
                 <Button>
                   <ShoppingBagIcon className="flex h-5 w-5" />

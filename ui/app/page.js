@@ -1,10 +1,6 @@
 import { FullPage } from '@@/core/Layouts'
-import Hero from '@@/Hero'
+import Hero from '@@/Hero1'
 
 export default function Home() {
-  return (
-    <FullPage>
-      <Hero />
-    </FullPage>
-  )
+  return <Hero />
 }

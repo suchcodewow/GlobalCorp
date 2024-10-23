@@ -35,6 +35,28 @@ export async function getUser(userId) {
   return await response.json()
 }
 
+export async function myOrders() {
+  const userCookie = cookies().get('scwuser')?.value
+  if (!userCookie) {
+    console.log('Error! no userCookie to get existing orders')
+    return {}
+  }
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_ORDERSAPI + '/api/order/myorders',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        AuthId: userCookie,
+      },
+    },
+  )
+
+  const data = await response.json()
+  console.log(data)
+  return data
+}
+
 // Banking functions
 export async function userAccounts() {
   const userId = cookies().get('scwid')?.value
@@ -197,7 +219,7 @@ export async function newStoreOrder(formData) {
   }
   const params = {
     status: 'new',
-    cartTotal: formData.get('Total'),
+    cartTotal: formData.get('TotalPrice'),
     totalItems: formData.get('TotalItems'),
     Name: userCookie,
   }
@@ -208,7 +230,13 @@ export async function newStoreOrder(formData) {
       'Content-Type': 'application/json',
     },
   }
-  console.log(options)
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_ORDERSAPI + '/api/order',
+    options,
+  )
+  // console.log(response)
+  cookies().delete('cart')
+  redirect('/myaccount')
 }
 
 // Random Generators ( leave at bottom, very long! )

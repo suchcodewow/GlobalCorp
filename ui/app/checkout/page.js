@@ -347,6 +347,15 @@ export default async function Checkout() {
                     defaultValue={totalItems}
                     className="border-0 text-right text-sm font-medium text-gray-900"
                   />
+                  <input
+                    readOnly
+                    hidden
+                    id="TotalPrice"
+                    name="TotalPrice"
+                    type="text"
+                    defaultValue={total}
+                    className="border-0 text-right text-sm font-medium text-gray-900"
+                  />
                   <dt className="text-sm">Subtotal</dt>
                   <input
                     readOnly
@@ -379,21 +388,16 @@ export default async function Checkout() {
                     className="border-0 text-right text-sm font-medium text-gray-900"
                   />
                 </div>
-                <div className="flex items-center justify-items-end border-t border-gray-200 pt-6">
-                  <div className="flex border-2 border-blue-400 text-base font-medium">
-                    Total
-                  </div>
-                  <div className="flex items-center">
-                    <p className="mx-0">$</p>
-                    <input
-                      readOnly
-                      id="Total"
-                      name="Total"
-                      type="text"
-                      defaultValue={total}
-                      className="mx-0 border-0 text-sm font-medium text-gray-900"
-                    />
-                  </div>
+                <div className="flex items-center justify-between">
+                  <dt className="text-sm">Total</dt>
+                  <input
+                    readOnly
+                    id="Total"
+                    name="Total"
+                    type="text"
+                    defaultValue={'$' + total}
+                    className="border-0 text-right text-sm font-medium text-gray-900"
+                  />
                 </div>
               </dl>
 
