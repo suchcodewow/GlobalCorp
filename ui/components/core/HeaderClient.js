@@ -59,10 +59,15 @@ export default function HeaderClient({
                           pathname === item.href
                             ? 'bg-sky-950 text-white'
                             : 'text-gray-300 hover:bg-sky-800 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium',
+                          'relative flex rounded-md px-3 py-2 text-sm font-medium',
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
+                        {item.new && (
+                          <div className="border-1 absolute -right-1 -top-1 ml-1 inline-flex h-4 w-10 items-center justify-center rounded-full border-gray-200 bg-sky-600 text-xs text-white">
+                            new!
+                          </div>
+                        )}
                         {item.name}
                       </Link>
                     ))}

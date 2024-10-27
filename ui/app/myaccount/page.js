@@ -1,5 +1,5 @@
 import { FullPage } from '@@/core/Layouts'
-import { myOrders, userTransactions } from '@@/core/Library'
+import { myOrders, myQuotes, userTransactions } from '@@/core/Library'
 
 export default async function MyAccount() {
   const people = [
@@ -13,7 +13,8 @@ export default async function MyAccount() {
   ]
   const orders = await myOrders()
   const payments = await userTransactions()
-  console.log(payments)
+  const quotes = await myQuotes()
+  console.log(quotes.data)
   return (
     <FullPage>
       {/* Columns */}
@@ -80,7 +81,7 @@ export default async function MyAccount() {
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <h1 className="text-center text-base font-semibold leading-6 text-gray-900">
-                My Orders
+                My Quotes
               </h1>
             </div>
           </div>

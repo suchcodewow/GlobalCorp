@@ -1,4 +1,4 @@
-$portList = @(8080, 5000, 8000, 6000, 3666, 5130, 3000, 80)
+$portList = @(8080, 5000, 8000, 6100, 3666, 5130, 3000, 80)
 write-host -ForegroundColor green "Pulling any submodules..."
 git submodule update --init --recursive
 
@@ -27,11 +27,11 @@ if (-not $testDocker) {
     write-host -ForegroundColor red "Please start docker engine and try again."
     break
 }
-write-host -ForegroundColor green  "Starting Docker databases (catalogdb, ordersdb, maindb)"
+write-host -ForegroundColor green "Starting Docker databases (catalogdb, ordersdb, maindb)"
 docker compose up catalogdb -d
 docker compose up ordersdb -d
 docker compose up maindb -d
-write-host -ForegroundColor green  "Starting services in different tabs"
+write-host -ForegroundColor green "Starting services in different tabs"
 write-host -ForegroundColor blue "Window 1: Catalog Api"
 wt --window 0 nt -p "PowerShell" -d "..\catalogapi" pwsh -noExit ".\start.ps1"
 write-host -ForegroundColor blue "Window 2: Main Api (Logins and banking)"

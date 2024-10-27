@@ -18,5 +18,5 @@ func main() {
 	//routes
 	routes.QuoteRoute(router)
 
-	log.Fatal(http.ListenAndServe(":6000", router))
+	log.Fatal(http.ListenAndServe(":6100", router))
 }

@@ -22,7 +22,7 @@ export function Links() {
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Banking', href: '/banking', current: false },
-  { name: 'Insurance', href: '/insurance', current: false },
+  { name: 'Insurance', href: '/insurance', current: false, new: true },
   { name: 'Store', href: '/store', current: false },
 ]
 const userNavigation = [

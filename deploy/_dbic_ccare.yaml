@@ -322,7 +322,7 @@ spec:
           image: suchcodewow/dbic-quotesapi:ccare
           imagePullPolicy: Always
           ports:
-            - containerPort: 6000
+            - containerPort: 6100
               name: quotesapi
           env:
             - name: DT_CUSTOM_PROP
@@ -341,8 +341,8 @@ metadata:
     app.kubernetes.io/name: quotesapi
 spec:
   ports:
-    - port: 6000
-      targetPort: 6000
+    - port: 6100
+      targetPort: 6100
       name: quotesapi
   selector:
     app.kubernetes.io/part-of: dbic

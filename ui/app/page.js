@@ -1,5 +1,5 @@
 import { FullPage } from '@@/core/Layouts'
-import Hero from '@@/Hero1'
+import Hero from '@@/Hero'
 
 export default function Home() {
   return <Hero />

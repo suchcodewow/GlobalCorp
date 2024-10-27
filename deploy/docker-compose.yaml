@@ -88,7 +88,7 @@ services:
     image: suchcodewow/dbic-quotesapi
     restart: always
     ports:
-      - 6000:6000
+      - 6100:6100
     depends_on:
       - maindb
 
