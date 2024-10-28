@@ -1,10 +1,29 @@
 import { FullPage } from '@@/core/Layouts'
-import { myOrders, myQuotes, userTransactions } from '@@/core/Library'
+import { allOrders, allQuotes, allTransactions } from '@@/core/Library'
 
 export default async function MyAccount() {
-  const orders = await myOrders()
-  const payments = await userTransactions()
-  const quotes = await myQuotes()
+  const orders = await allOrders()
+  // id: 1,
+  // name: 'IcyGiraffe',
+  // cartTotal: '56.50',
+  // totalItems: 1,
+  // status: 'new'
+  const payments = await allTransactions()
+  // accountName: 'Checking',
+  // amount: -100,
+  // id: '66f2e10a018d800908eb3d1b',
+  // timestamp: 'Tue, 24 Sep 2024 15:55:54 GMT',
+  // userId: 'Cold Honey',
+  // vendor: 'Test Company'
+  const quotes = await allQuotes()
+  // id: '671fa72822d563f37bfa5bef',
+  // name: 'HollowCellar',
+  // birthdate: '10/22/1968',
+  // email: 'HollowCellar@mail.com',
+  // homesize: '5457',
+  // caryear: '2019',
+  // carmodel: 'Metris Cargo',
+  // status: 'new'
   return (
     <FullPage>
       {/* Columns */}
@@ -14,7 +33,7 @@ export default async function MyAccount() {
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <h1 className="py-2 text-center text-base font-semibold leading-6">
-                My Quotes
+                Quotes in Progress
               </h1>
             </div>
           </div>
@@ -80,7 +99,7 @@ export default async function MyAccount() {
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <h1 className="py-2 text-center text-base font-semibold leading-6">
-                My Orders
+                Orders in Progress
               </h1>
             </div>
           </div>
@@ -137,7 +156,7 @@ export default async function MyAccount() {
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <h1 className="py-2 text-center text-base font-semibold leading-6">
-                My Payments
+                Recent Payments
               </h1>
             </div>
           </div>

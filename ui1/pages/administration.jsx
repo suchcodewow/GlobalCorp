@@ -102,9 +102,7 @@ export default function Administration() {
                       {item.CustRef}
                     </th>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{item.Status}</td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      {format(new Date(item.UpdateTime), "M/d/yy H:mm")}
-                    </td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap">{format(new Date(item.UpdateTime), "M/d/yy H:mm")}</td>
                   </tr>
                 ))}
               </tbody>
@@ -143,7 +141,6 @@ export default function Administration() {
         </div>
         <div className="bg-white rounded-lg  shadow p-2 w-full">
           <span className="p-1 ">Banking Transactions</span>
-
           <div className="overflow-x-hidden relative shadow-sm mt-2 sm:rounded-lg">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
               <thead className="text-xs text-gray-700 uppercase bg-gray-200">
@@ -168,17 +165,9 @@ export default function Administration() {
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{transaction.userId}</td>
                     <td className="p-1 text-xs font-medium text-gray-900 whitespace-nowrap">{transaction.vendor}</td>
                     <td className="p-1 font-medium text-gray-900 whitespace-nowrap">
-                      <NumericFormat
-                        displayType="text"
-                        prefix={"$"}
-                        valueIsNumericString={true}
-                        thousandSeparator=","
-                        value={transaction.amount.toFixed(2)}
-                      />
+                      <NumericFormat displayType="text" prefix={"$"} valueIsNumericString={true} thousandSeparator="," value={transaction.amount.toFixed(2)} />
                     </td>
-                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">
-                      {format(new Date(transaction.timestamp), "M/d/yy H:mm")}
-                    </td>
+                    <td className="p-1 font-medium text-gray-900 whitespace-nowrap ">{format(new Date(transaction.timestamp), "M/d/yy H:mm")}</td>
                   </tr>
                 ))}
               </tbody>

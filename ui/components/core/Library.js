@@ -1,4 +1,4 @@
-// Huge file of random items. in VScode, use CTRL+K+1 to collapse all regions.  Just open what you need.
+// Huge file of random items. in VScode, use CTRL(cmd on mac)+K+1 to collapse all regions.  Just open what you need.
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -29,33 +29,12 @@ export async function getUser(userId) {
       'Content-Type': 'application/json',
     },
   }
+
   const response = await fetch(
     process.env.NEXT_PUBLIC_MAINAPI + '/api/users/login/' + userId,
     options,
   )
   return await response.json()
-}
-
-export async function myOrders() {
-  const userCookie = cookies().get('scwuser')?.value
-  if (!userCookie) {
-    console.log('Error! no userCookie to get existing orders')
-    return {}
-  }
-  const response = await fetch(
-    process.env.NEXT_PUBLIC_ORDERSAPI + '/api/order/myorders',
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        AuthId: userCookie,
-      },
-    },
-  )
-
-  const data = await response.json()
-  console.log(data)
-  return data
 }
 // #endregion
 
@@ -74,6 +53,17 @@ export async function userAccounts() {
   )
   const responseJson = await response.json()
   return responseJson.accounts
+}
+
+export async function allTransactions() {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_MAINAPI + '/api/transactions',
+    {
+      method: 'GET',
+    },
+  )
+  const responseJson = await response.json()
+  return responseJson
 }
 
 export async function userTransactions() {
@@ -122,7 +112,7 @@ export async function postTransaction(formData) {
       'Content-Type': 'application/json',
     },
   }
-  console.log(options)
+
   const response = await fetch(
     process.env.NEXT_PUBLIC_MAINAPI + '/api/transactions',
     options,
@@ -132,8 +122,7 @@ export async function postTransaction(formData) {
   return jsonResponse
 }
 export async function updateBalance(data) {
-  console.log(data.id)
-  ;('use server')
+  'use server'
   // TODO: check funds
   // Build HTTP Request
   const options = {
@@ -190,6 +179,42 @@ export async function updateBalance(data) {
 // #endregion
 
 // #region Catalog functions
+export async function allOrders() {
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_ORDERSAPI + '/api/order',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  )
+
+  const data = await response.json()
+
+  return data
+}
+export async function myOrders() {
+  const userCookie = cookies().get('scwuser')?.value
+  if (!userCookie) {
+    console.log('Error! no userCookie to get existing orders')
+    return {}
+  }
+  const response = await fetch(
+    process.env.NEXT_PUBLIC_ORDERSAPI + '/api/order/myorders',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        AuthId: userCookie,
+      },
+    },
+  )
+
+  const data = await response.json()
+  return data
+}
+
 export async function storeCatalog() {
   const response = await fetch(
     process.env.NEXT_PUBLIC_CATALOGAPI + '/api/v1/catalog?pageSize=30',
@@ -214,7 +239,7 @@ export async function storeItem(id) {
 
 export async function newStoreOrder(formData) {
   'use server'
-  console.log(formData)
+
   const userCookie = cookies().get('scwuser')?.value
   if (!userCookie) {
     console.log('Error! no userCookie for new order')
@@ -237,13 +262,21 @@ export async function newStoreOrder(formData) {
     process.env.NEXT_PUBLIC_ORDERSAPI + '/api/order',
     options,
   )
-  // console.log(response)
+
   cookies().delete('cart')
   redirect('/myaccount')
 }
 // #endregion
 
 // #region Insurance Functions
+export async function allQuotes() {
+  const response = await fetch(process.env.NEXT_PUBLIC_QUOTESAPI + '/quote', {
+    method: 'GET',
+  })
+  const responseJson = await response.json()
+  return responseJson.data
+}
+
 export async function myQuotes() {
   const userCookie = cookies().get('scwuser')?.value
   if (!userCookie) {
@@ -257,8 +290,9 @@ export async function myQuotes() {
     },
   )
   const responseJson = await response.json()
-  return responseJson
+  return responseJson.data
 }
+
 export async function saveQuote(formData) {
   'use server'
   const userName = cookies().get('scwuser')?.value
@@ -282,7 +316,7 @@ export async function saveQuote(formData) {
     CarModel: formData.get('carModel'),
     BirthDate: formData.get('BirthDate'),
   }
-  console.log(data)
+
   const options = {
     method: 'POST',
     body: JSON.stringify(data),
@@ -290,13 +324,13 @@ export async function saveQuote(formData) {
       'Content-Type': 'application/json',
     },
   }
-  console.log(options)
+
   const response = await fetch(
     process.env.NEXT_PUBLIC_QUOTESAPI + '/quote',
     options,
   )
   const jsonResponse = await response.json()
-  console.log(jsonResponse)
+
   redirect('/myaccount')
 }
 

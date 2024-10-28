@@ -111,6 +111,14 @@ export default function HeaderClient({
                         </MenuItem>
                         <MenuItem>
                           <a
+                            href="/admin"
+                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                          >
+                            Administration
+                          </a>
+                        </MenuItem>
+                        <MenuItem>
+                          <a
                             href="#"
                             onClick={handleLogout}
                             className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
