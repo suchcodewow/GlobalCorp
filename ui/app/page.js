@@ -99,12 +99,12 @@ export default function Home() {
         </div>
       </div>
       <div className="my-1" />
-      <div className="mx-auto bg-white bg-[url('/images/vehicle.svg')] bg-[length:500px] bg-top bg-no-repeat pt-48">
-        <div className="bg-white lg:text-center">
+      <div className="mx-auto bg-white bg-[url('/images/vehicle.svg')] bg-[length:500px] bg-top bg-no-repeat pt-48 text-center">
+        <div className="bg-white">
           <p className="pt-4 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
             Insurance that fits like a glove
           </p>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+          <p className="mx-auto mt-4 max-w-2xl text-xl text-gray-500">
             Protecting what matters to you shouldn&apos;t be a hassle. Find the
             coverage you need and get the peace of mind you deserve.
           </p>
