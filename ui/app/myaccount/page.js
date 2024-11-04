@@ -62,7 +62,7 @@ export default async function MyAccount() {
                           {quote.carmodel}
                         </td>
                         <td className="whitespace-nowrap p-2 text-sm text-gray-500">
-                          {quote.homesize}
+                          {quote.homesize}sqft
                         </td>
                         <td className="whitespace-nowrap p-2 text-sm text-gray-500">
                           {quote.status}
