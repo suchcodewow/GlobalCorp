@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 
 // 1. Specify public routes
-const publicPaths = ['/', '/login', '/logout', '/store', '/insurance']
+// /admin is open as an escape-hatch in case user puts in a value preventing logins, doh!
+const publicPaths = ['/', '/login', '/logout', '/store', '/insurance', '/admin']
 
 export default async function middleware(req) {
   // 2. Check if the current route is protected or public

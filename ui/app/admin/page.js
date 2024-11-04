@@ -24,10 +24,122 @@ export default async function MyAccount() {
   // caryear: '2019',
   // carmodel: 'Metris Cargo',
   // status: 'new'
+
   return (
     <FullPage>
+      <div className="my-4 rounded-xl border-2">
+        <form>
+          <div className="space-y-2">
+            <div className="p-2">
+              <div>
+                <div className="grid grid-cols-4 gap-x-6 gap-y-2">
+                  <div>
+                    <label
+                      htmlFor="MainAPI"
+                      className="block text-sm font-medium text-gray-900"
+                    >
+                      MainAPI
+                    </label>
+                    <div>
+                      <div className="flex sm:max-w-md">
+                        <input
+                          id="MainAPI"
+                          name="MainAPI"
+                          type="text"
+                          readOnly
+                          defaultValue={process.env.NEXT_PUBLIC_MAINAPI}
+                          autoComplete="MainAPI"
+                          className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="CATALOGAPI"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      CatalogAPI
+                    </label>
+                    <div>
+                      <div className="flex sm:max-w-md">
+                        <input
+                          id="CATALOGAPI"
+                          name="CATALOGAPI"
+                          type="text"
+                          readOnly
+                          defaultValue={process.env.NEXT_PUBLIC_CATALOGAPI}
+                          autoComplete="CATALOGAPI"
+                          className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="ORDERSAPI"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      OrdersAPI
+                    </label>
+                    <div>
+                      <div className="flex sm:max-w-md">
+                        <input
+                          id="ORDERSAPI"
+                          name="ORDERSAPI"
+                          type="text"
+                          readOnly
+                          defaultValue={process.env.NEXT_PUBLIC_ORDERSAPI}
+                          autoComplete="ORDERSAPI"
+                          className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="QUOTESAPI"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      QuotesAPI
+                    </label>
+                    <div>
+                      <div className="flex sm:max-w-md">
+                        <input
+                          id="QUOTESAPI"
+                          name="QUOTESAPI"
+                          type="text"
+                          readOnly
+                          defaultValue={process.env.NEXT_PUBLIC_QUOTESAPI}
+                          autoComplete="QUOTESAPI"
+                          className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="mt-6 flex items-center justify-end gap-x-6 p-4">
+              <button
+                type="button"
+                className="text-sm font-semibold leading-6 text-gray-900"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Submit
+              </button>
+            </div> */}
+          </div>
+        </form>
+      </div>
       {/* Columns */}
-      <div className="grid grid-cols-1 gap-2 pt-5 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-2 xl:grid-cols-3">
         {/* My Quotes */}
         <div className="rounded-xl border-2">
           <div className="sm:flex sm:items-center">
