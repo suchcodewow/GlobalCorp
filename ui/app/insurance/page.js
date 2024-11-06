@@ -1,4 +1,5 @@
 import { FullPage } from '@@/core/Layouts'
+import { cookies } from 'next/headers'
 import Image from 'next/image'
 import {
   BoltIcon,
@@ -65,65 +66,73 @@ const taglines = [
 const tagline = taglines[Math.floor(Math.random() * taglines.length)]
 
 export default function Insurance() {
+  const enableCollecticare = process.env.enableCollecticare
   return (
     <FullPage>
       <div className="flex min-h-screen w-full flex-col">
         {/* Collecticare frame */}
-        <div className="mx-auto max-w-7xl bg-gray-100 pt-6">
-          {/* Announcements Block */}
-          <div className="flex flex-col items-center">
-            <p className="p-4 text-center text-2xl leading-8 tracking-tight text-gray-900">
-              <span className="block bg-gradient-to-r from-sky-600 via-cyan-600 to-lime-600 bg-clip-text font-extrabold text-transparent xl:inline">
-                GlobalCorp
-              </span>
-              &nbsp;is proud to announce our merger with Collecticare!
-            </p>
-            <div className="relative h-64 w-64">
-              <Image
-                src="/images/collecticare.svg"
-                alt="credicare logo"
-                fill
-                priority="true"
-              />
-            </div>
-            <p>We care about whatever you collect-</p>
-            <p>{tagline.text}</p>
+        {enableCollecticare === 'on' ? (
+          <div className="mx-auto max-w-7xl bg-gray-100 pt-6">
+            {/* Announcements Block */}
+            <div className="flex flex-col items-center">
+              <p className="p-4 text-center text-2xl leading-8 tracking-tight text-gray-900">
+                <span className="block bg-gradient-to-r from-sky-600 via-cyan-600 to-lime-600 bg-clip-text font-extrabold text-transparent xl:inline">
+                  GlobalCorp
+                </span>
+                &nbsp;is proud to announce our merger with Collecticare!
+              </p>
+              <div className="relative h-64 w-64">
+                <Image
+                  src="/images/collecticare.svg"
+                  alt="credicare logo"
+                  fill
+                  priority="true"
+                />
+              </div>
+              <p>We care about whatever you collect-</p>
+              <p>{tagline.text}</p>
 
-            {/* Collecticare Features */}
-            <div className="mt-10 px-4 sm:px-6 lg:px-8">
-              <dl className="space-y-10 md:grid md:grid-cols-2 md:gap-x-14 md:gap-y-10 md:space-y-0">
-                {collecticareFeatures.map((feature) => (
-                  <div key={feature.name} className="relative">
-                    <dt>
-                      <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-slate-500 text-white">
-                        <feature.icon className="h-6 w-6" aria-hidden="true" />
-                      </div>
-                      <p className="ml-16 text-lg font-medium leading-6 text-gray-900">
-                        {feature.name}
-                      </p>
-                    </dt>
-                    <dd className="ml-16 mt-2 text-base text-gray-500">
-                      {feature.description}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-            <div className="">
-              <div className="my-4 flex-row items-center space-x-4 md:flex">
-                <a
-                  href="/customquote"
-                  className="flex rounded-full bg-slate-500 px-8 py-2 text-xl text-white shadow-md hover:bg-slate-700"
-                >
-                  Insure specialty item
-                </a>
-                <p className="flex text-lg">
-                  Or continue to standard insurance...
-                </p>
+              {/* Collecticare Features */}
+              <div className="mt-10 px-4 sm:px-6 lg:px-8">
+                <dl className="space-y-10 md:grid md:grid-cols-2 md:gap-x-14 md:gap-y-10 md:space-y-0">
+                  {collecticareFeatures.map((feature) => (
+                    <div key={feature.name} className="relative">
+                      <dt>
+                        <div className="absolute flex h-12 w-12 items-center justify-center rounded-md bg-slate-500 text-white">
+                          <feature.icon
+                            className="h-6 w-6"
+                            aria-hidden="true"
+                          />
+                        </div>
+                        <p className="ml-16 text-lg font-medium leading-6 text-gray-900">
+                          {feature.name}
+                        </p>
+                      </dt>
+                      <dd className="ml-16 mt-2 text-base text-gray-500">
+                        {feature.description}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <div className="">
+                <div className="my-4 flex-row items-center space-x-4 md:flex">
+                  <a
+                    href="/customquote"
+                    className="flex rounded-full bg-slate-500 px-8 py-2 text-xl text-white shadow-md hover:bg-slate-700"
+                  >
+                    Insure specialty item
+                  </a>
+                  <p className="flex text-lg">
+                    Or continue to standard insurance...
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div></div>
+        )}
         {/* Page Background */}
         <div className="mx-auto max-w-7xl bg-white pt-4">
           <div className="bg-[url('/images/vehicle.svg')] bg-[length:500px] bg-top bg-no-repeat pt-48"></div>

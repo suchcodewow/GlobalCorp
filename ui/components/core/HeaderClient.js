@@ -10,7 +10,7 @@ import {
 } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import { usePathname, redirect } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useUserContext } from '@@/core/Context'
 import Link from 'next/link'
 import { logoutUser } from '@@/actions/auth-actions'
@@ -24,6 +24,7 @@ export default function HeaderClient({
   userNavigation,
   userCookie,
 }) {
+  console.log(navigation)
   const { dispatch } = useUserContext()
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT' })
@@ -63,10 +64,12 @@ export default function HeaderClient({
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
-                        {item.new && (
+                        {item.new === 'on' ? (
                           <div className="border-1 absolute -right-1 -top-1 ml-1 inline-flex h-4 w-10 items-center justify-center rounded-full border-gray-200 bg-sky-600 text-xs text-white">
                             new!
                           </div>
+                        ) : (
+                          <div></div>
                         )}
                         {item.name}
                       </Link>
@@ -115,6 +118,14 @@ export default function HeaderClient({
                             className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                           >
                             Administration
+                          </a>
+                        </MenuItem>
+                        <MenuItem>
+                          <a
+                            href="/operations"
+                            className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                          >
+                            Operations
                           </a>
                         </MenuItem>
                         <MenuItem>

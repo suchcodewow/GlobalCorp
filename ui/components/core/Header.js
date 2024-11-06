@@ -19,11 +19,16 @@ export function Links() {
   )
 }
 
+const enableCollecticare = process.env.enableCollecticare
 const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'Banking', href: '/banking', current: false },
-  { name: 'Insurance', href: '/insurance', current: false, new: true },
-  { name: 'Store', href: '/store', current: false },
+  { name: 'Home', href: '/' },
+  { name: 'Banking', href: '/banking' },
+  {
+    name: 'Insurance',
+    href: '/insurance',
+    new: enableCollecticare,
+  },
+  { name: 'Store', href: '/store' },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -33,6 +38,7 @@ const userNavigation = [
 
 export default function Header() {
   const userCookie = cookies().get('scwuser')?.value
+
   return (
     <HeaderClient
       userCookie={userCookie}
