@@ -96,7 +96,7 @@ export default async function myRecents() {
                       {element.amount.toFixed(2)}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      ${format(new Date(element.timestamp), 'M/d/yy H:m')}
+                      {format(new Date(element.timestamp), 'H:m M/d/yyyy')}
                     </td>
                   </tr>
                 ))}
