@@ -2,9 +2,8 @@
 // Provisions the following resources: 
 //    GKE Cluster, GKE Node Pool
 locals {
-  gke_cluster_id = replace(var.cluster_name, "-", "_")
-  clean_owner = replace(lower(replace(var.owner, " ", "-")),"@","-")
-
+  gke_cluster_id = lower(replace(var.cluster_name,"/\\W|_|\\s/","-"))
+  clean_owner = lower(replace(var.owner,"/\\W|_|\\s/","-"))
 }
 
 // GKE Cluster
