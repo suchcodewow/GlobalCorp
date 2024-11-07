@@ -74,45 +74,45 @@ resource "google_container_node_pool" "gke_node_pool" {
 }
 
 // Harness K8s Connector
-resource "harness_platform_connector_kubernetes" "gke_k8s" {
-  identifier = "gke_${local.gke_cluster_id}"
-  name       = "GKE - ${var.gke_cluster_name}"
-  org_id     = var.org_id
-  project_id = var.project_id
+# resource "harness_platform_connector_kubernetes" "gke_k8s" {
+#   identifier = "gke_${local.gke_cluster_id}"
+#   name       = "GKE - ${var.gke_cluster_name}"
+#   org_id     = var.org_id
+#   project_id = var.project_id
 
-  client_key_cert {
-    master_url           = "https://${google_container_cluster.gke_cluster.endpoint}"
-    client_cert_ref      = harness_platform_secret_text.client_cert.id
-    client_key_ref       = harness_platform_secret_text.client_key.id
-    client_key_algorithm = "RSA"
-  }
+#   client_key_cert {
+#     master_url           = "https://${google_container_cluster.gke_cluster.endpoint}"
+#     client_cert_ref      = harness_platform_secret_text.client_cert.id
+#     client_key_ref       = harness_platform_secret_text.client_key.id
+#     client_key_algorithm = "RSA"
+#   }
 
-  tags = ["owner:${var.resource_owner}", "iacmManaged:true"]
-}
+#   tags = ["owner:${var.resource_owner}", "iacmManaged:true"]
+# }
 
 // Harness Secrets
-resource "harness_platform_secret_text" "client_cert" {
-  identifier = "gke_client_cert_${local.gke_cluster_id}"
-  name       = "GKE Client Cert - ${var.gke_cluster_name}"
-  org_id     = var.org_id
-  project_id = var.project_id
+# resource "harness_platform_secret_text" "client_cert" {
+#   identifier = "gke_client_cert_${local.gke_cluster_id}"
+#   name       = "GKE Client Cert - ${var.gke_cluster_name}"
+#   org_id     = var.org_id
+#   project_id = var.project_id
 
-  secret_manager_identifier = "account.harnessSecretManager"
-  value_type                = "Inline"
-  value                     = google_container_cluster.gke_cluster.master_auth.0.client_certificate
+#   secret_manager_identifier = "account.harnessSecretManager"
+#   value_type                = "Inline"
+#   value                     = google_container_cluster.gke_cluster.master_auth.0.client_certificate
 
-  tags = ["owner:${var.resource_owner}", "iacmManaged:true"]
-}
+#   tags = ["owner:${var.resource_owner}", "iacmManaged:true"]
+# }
 
-resource "harness_platform_secret_text" "client_key" {
-  identifier = "gke_client_key_${local.gke_cluster_id}"
-  name       = "GKE Client Key - ${var.gke_cluster_name}"
-  org_id     = var.org_id
-  project_id = var.project_id
+# resource "harness_platform_secret_text" "client_key" {
+#   identifier = "gke_client_key_${local.gke_cluster_id}"
+#   name       = "GKE Client Key - ${var.gke_cluster_name}"
+#   org_id     = var.org_id
+#   project_id = var.project_id
 
-  secret_manager_identifier = "account.harnessSecretManager"
-  value_type                = "Inline"
-  value                     = google_container_cluster.gke_cluster.master_auth.0.client_key
+#   secret_manager_identifier = "account.harnessSecretManager"
+#   value_type                = "Inline"
+#   value                     = google_container_cluster.gke_cluster.master_auth.0.client_key
 
-  tags = ["owner:${var.resource_owner}", "iacmManaged:true"]
-}
+#   tags = ["owner:${var.resource_owner}", "iacmManaged:true"]
+# }
