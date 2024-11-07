@@ -3,7 +3,7 @@
 //    GKE Cluster, GKE Node Pool
 locals {
   gke_cluster_id = replace(var.cluster_name, "-", "_")
-  clean_owner =lower(replace(var.owner, " ", "-"))
+  clean_owner = replace(lower(replace(var.owner, " ", "-")),"@","-")
 
 }
 
