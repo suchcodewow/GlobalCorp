@@ -4,6 +4,10 @@ variable "account_id" {
   type = string
 }
 
+variable "owner" {
+  type = string
+}
+
 variable "org_id" {
   type = string
 }
@@ -46,7 +50,7 @@ variable "gke_max_node_count" {
   type = string
 }
 
-variable "gke_machine_type" {
+variable "machine_type" {
   type = string
 }
 
