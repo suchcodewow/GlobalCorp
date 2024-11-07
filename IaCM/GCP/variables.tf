@@ -1,7 +1,21 @@
 // Define Valid Variables
 // Harness Platform
-variable "account_id" {
+# variable "account_id" {
+#   type = string
+# }
+
+variable "cluster_name" {
   type = string
+}
+
+variable "min_node_count" {
+  type = string
+  default = 1
+}
+
+variable "max_node_count" {
+  type = string
+  default = 1
 }
 
 variable "owner" {
@@ -16,12 +30,11 @@ variable "project_id" {
   type = string
 }
 
-variable "api_key" {
-  type      = string
-  sensitive = true
+variable "resource_purpose" {
+  type = string
+  default = "purposemissing"
 }
 
-// GCP
 variable "gcp_project_id" {
   type    = string
   default = "sales-209522"
@@ -37,32 +50,24 @@ variable "gcp_zone" {
   default = "us-east1-b"
 }
 
-// GKE Cluster & Node Pool
-variable "gke_cluster_name" {
+// Cluster & Node Pool
+
+variable "gke_machine_type" {
   type = string
+  default="e2-standard-4"
 }
 
-variable "gke_min_node_count" {
-  type = string
-}
-
-variable "gke_max_node_count" {
-  type = string
-}
-
-variable "machine_type" {
-  type = string
-}
-
-variable "resource_owner" {
-  type = string
-}
-
-variable "resource_purpose" {
-  type = string
-}
 
 // Harness Config
-variable "namespace" {
-  type = string
-}
+# variable "namespace" {
+#   type = string
+# }
+
+# variable "api_key" {
+#   type      = string
+#   sensitive = true
+# }
+
+# variable "resource_owner" {
+#   type = string
+# }

@@ -2,12 +2,14 @@
 // Provisions the following resources: 
 //    GKE Cluster, GKE Node Pool
 locals {
-  gke_cluster_id = replace(var.gke_cluster_name, "-", "_")
+  gke_cluster_id = replace(var.cluster_name, "-", "_")
+  clean_owner =lower(replace(var.owner, " ", "-"))
+
 }
 
 // GKE Cluster
-resource "google_container_cluster" "gke_cluster" {
-  name     = var.gke_cluster_name
+resource "google_container_cluster" "cluster" {
+  name     = var.cluster_name
   location = var.gcp_zone
 
   deletion_protection      = false
@@ -28,9 +30,9 @@ resource "google_container_cluster" "gke_cluster" {
   }
 
   resource_labels = {
-    env     = var.gke_cluster_name
+    env     = var.cluster_name
     purpose = var.resource_purpose
-    owner   = var.resource_owner
+    owner   = local.clean_owner
   }
 
   timeouts {
@@ -41,13 +43,13 @@ resource "google_container_cluster" "gke_cluster" {
 
 // GKE Node Pool
 resource "google_container_node_pool" "gke_node_pool" {
-  name       = "${google_container_cluster.gke_cluster.name}-pool-01"
-  cluster    = google_container_cluster.gke_cluster.id
-  node_count = var.gke_min_node_count
+  name       = "${google_container_cluster.cluster.name}-pool-01"
+  cluster    = google_container_cluster.cluster.id
+  node_count = var.min_node_count
 
   autoscaling {
-    min_node_count = var.gke_min_node_count
-    max_node_count = var.gke_max_node_count
+    min_node_count = var.min_node_count
+    max_node_count = var.max_node_count
   }
 
   management {
